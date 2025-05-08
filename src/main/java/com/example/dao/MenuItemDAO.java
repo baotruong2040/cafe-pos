@@ -10,7 +10,6 @@ public class MenuItemDAO extends GenericDAO<MenuItem> {
         super(MenuItem.class);
     }
 
-    // Thêm phương thức tùy chỉnh nếu cần
     public List<MenuItem> findByCategory(String category) {
         try (var session = com.example.util.HibernateUtil.getSessionFactory().openSession()) {
             return session.createQuery(

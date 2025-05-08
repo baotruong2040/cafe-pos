@@ -13,6 +13,9 @@ public class MenuItem {
     private String category;
     private double price;
 
+    @Column(length = 255)
+    private String description;
+
     @Column(name = "image_path")
     private String imagePath;
 
@@ -53,6 +56,14 @@ public class MenuItem {
         this.price = price;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     public String getImagePath() {
         return imagePath;
     }
@@ -77,6 +88,6 @@ public class MenuItem {
         this.orderItems = orderItems;
     }
 
-    // Getters, Setters
+
     
 }
