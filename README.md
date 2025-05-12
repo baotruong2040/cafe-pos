@@ -19,15 +19,16 @@ A Java-based Point of Sale (POS) system for cafes using JavaFX and Hibernate.
 - Maven (Build Tool)
 
 ## Project Structure
-src/ 
-├── main/ 
-│ ├── java/ 
-│ │ ├── com.example/ 
-│ │ │ ├── model/ # Entity classes 
-│ │ │ ├── dao/ # Data Access Objects 
-│ │ │ ├── controller/ # JavaFX Controllers 
-│ │ │ └── util/ # Utility classes 
-│ └── resources/ # Configuration files
+   ```bash
+   src/ 
+   ├── main/ 
+   │ ├── java/ 
+   │ │ ├── com.example/ 
+   │ │ │ ├── model/ # Entity classes 
+   │ │ │ ├── dao/ # Data Access Objects 
+   │ │ │ ├── controller/ # JavaFX Controllers 
+   │ │ │ └── util/ # Utility classes 
+   │ └── resources/ # Configuration files
 
 ## Database Schema
 
