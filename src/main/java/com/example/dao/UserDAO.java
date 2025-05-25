@@ -14,4 +14,19 @@ public class UserDAO extends GenericDAO<User> {
                     .uniqueResult();
         }
     }
+
+    public boolean isValidUser(String username, String password) {
+        User user = findByUsername(username);
+        return user != null && user.getPassword().equals(password);
+    }
+
+    public String getUserRole(String username) {
+        User user = findByUsername(username);
+        if (user != null) {
+            return user.getRole().name();
+        } else {
+            System.out.println("User not found");
+        }
+        return null;
+    }
 }

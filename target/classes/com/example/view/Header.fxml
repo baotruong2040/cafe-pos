@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.shape.Circle?>
+
+<HBox fx:id="navBar" alignment="CENTER_LEFT" maxHeight="60.0" minHeight="60.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Circle fx:id="logoCircle" fill="DODGERBLUE" radius="24.0" stroke="BLACK" strokeType="INSIDE" />
+      <Label fx:id="navLabel" text="Ri Coffee">
+         <HBox.margin>
+            <Insets left="5.0" />
+         </HBox.margin>
+      </Label>
+      <HBox fx:id="navHBox" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
+   </children>
+   <padding>
+      <Insets bottom="12.0" left="16.0" right="16.0" top="12.0" />
+   </padding>
+</HBox>

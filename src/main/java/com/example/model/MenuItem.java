@@ -21,6 +21,8 @@ public class MenuItem {
 
     private boolean available;
 
+    private int quantity;
+
     @OneToMany(mappedBy = "menuItem", cascade = CascadeType.ALL)
     private List<OrderItem> orderItems;
 
@@ -88,6 +90,12 @@ public class MenuItem {
         this.orderItems = orderItems;
     }
 
+    public int getQuantity() {
+        return quantity;
+    }
 
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
     
 }
