@@ -7,13 +7,12 @@ A Java-based Point of Sale (POS) system for cafes using JavaFX and Hibernate.
 - User Management (Admin/Staff roles)
 - Menu Item Management
 - Order Processing
-- Real-time Order Tracking
 - Database Integration with MySQL
 
 ## Technology Stack
 
 - Java 21
-- JavaFX 20 (GUI Framework)
+- JavaFX 23 (GUI Framework)
 - Hibernate 6.4.4 (ORM Framework)
 - MySQL 8 (Database)
 - Maven (Build Tool)
