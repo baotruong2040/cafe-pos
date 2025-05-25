@@ -42,7 +42,7 @@
                         <Insets left="8.0" />
                      </padding>
                   </Label>
-                  <TextField fx:id="dineIN_NumberField" maxWidth="-Infinity" prefWidth="30.0" promptText="0" style="-fx-background-color: transparent;">
+                  <TextField fx:id="dineIN_NumberField" maxWidth="-Infinity" prefHeight="30.0" prefWidth="82.0" promptText="0" style="-fx-background-color: transparent;">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>

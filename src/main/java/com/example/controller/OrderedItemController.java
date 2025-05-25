@@ -26,9 +26,14 @@ public class OrderedItemController {
     private Label orderedItemPrice;
 
     DineInController dineInController;
+    TakeAwayController takeAwayController;
 
     public void setDineInController(DineInController dineInController) {
         this.dineInController = dineInController;
+    }
+
+    public void setTakeAwayController(TakeAwayController takeAwayController) {
+        this.takeAwayController = takeAwayController;
     }
 
     public void setOrderedItem(MenuItem item) {

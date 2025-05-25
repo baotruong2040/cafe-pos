@@ -7,14 +7,15 @@ import com.example.model.MenuItem;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 
 public class DineInController {
-     @FXML
-    private TextField CustomerNameField;
+    @FXML
+    private TextField dineIn_NameField;
 
     @FXML
     private VBox dineIn;
@@ -23,7 +24,7 @@ public class DineInController {
     private ScrollPane dineScroll;
 
     @FXML
-    private TextField tableNumberField;
+    private TextField dineIN_NumberField;
 
     @FXML
     private ImageView clearButton;
@@ -31,16 +32,26 @@ public class DineInController {
     List<MenuItem> orderedItems = new ArrayList<>();
     MainController mainController;
 
+    @FXML
+    public void initialize() {
+        clearButton.setOnMouseClicked(event -> {
+            dineIn_NameField.setText("");
+            dineIN_NumberField.setText("");
+        });
+        dineScroll.setFitToWidth(true);
+        dineScroll.setFitToHeight(true);
+    }
+
     public void setMainController(MainController mainController) {
         this.mainController = mainController;
     }
 
     public void loadOrderedList() {
+        dineIn.getChildren().clear();
         for (MenuItem menuItem : orderedItems) {
-            dineIn.getChildren().clear(); // Clear previous items
             try {
                 FXMLLoader orderedItemLoader = new FXMLLoader(getClass().getResource("/com/example/view/orderedItem.fxml"));
-                VBox orderedItemBox = orderedItemLoader.load();
+                Node orderedItemBox = orderedItemLoader.load();
                 OrderedItemController orderedItemController = orderedItemLoader.getController();
                 orderedItemController.setOrderedItem(menuItem);
                 orderedItemController.setDineInController(this);
@@ -57,8 +68,6 @@ public class DineInController {
 
     public void clearCart() {
         dineIn.getChildren().clear();
-        CustomerNameField.clear();
-        tableNumberField.clear();
         orderedItems.clear();
         totalPrice();
     }
@@ -66,11 +75,13 @@ public class DineInController {
     public void addToCart(MenuItem item) {
         orderedItems.add(item);
         loadOrderedList();
+        totalPrice();
     }
 
     public void deleteOrderedItem(MenuItem item) {
         orderedItems.remove(item);
         loadOrderedList();
+        totalPrice();
     }
 
     public void totalPrice() {

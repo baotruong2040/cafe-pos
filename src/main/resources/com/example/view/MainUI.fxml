@@ -34,10 +34,35 @@
                   <Font size="20.0" />
                </font>
             </Label>
-            <HBox fx:id="navHBox" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
+            <HBox fx:id="navHBox" alignment="CENTER_RIGHT" prefHeight="30.0" prefWidth="864.0" spacing="12.0">
+               <children>
+                  <Button alignment="CENTER" mnemonicParsing="false" prefHeight="30.0" prefWidth="95.0" styleClass="nav-button" text="Dashboard">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </Button>
+                  <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="65.0" styleClass="nav-button" text="Menu">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Button>
+                  <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="80.0" styleClass="nav-button" text="Products">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Button>
+                  <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="70.0" styleClass="nav-button" text="Setting">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Button>
+               </children></HBox>
          </children>
          <padding>
-            <Insets bottom="12.0" left="16.0" right="16.0" top="12.0" />
+            <Insets left="16.0" right="16.0" />
          </padding>
          <BorderPane.margin>
             <Insets bottom="5.0" />
@@ -45,224 +70,300 @@
       </HBox>
    </top>
    <center>
-      <ScrollPane fx:id="scrollPane" fitToHeight="true" fitToWidth="true" BorderPane.alignment="CENTER">
+      <HBox BorderPane.alignment="CENTER">
          <BorderPane.margin>
             <Insets />
          </BorderPane.margin>
-         <content>
-            <VBox fx:id="container" prefHeight="200.0" prefWidth="100.0">
-               <children>
-                  <HBox fx:id="searchBar" alignment="CENTER_LEFT" minHeight="80.0" style="-fx-background-color: white;">
-                     <children>
-                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@Magnifying_glass_icon.svg.png" />
-                           </image>
-                        </ImageView>
-                        <TextField fx:id="searchField" promptText="Search Something" HBox.hgrow="ALWAYS">
-                           <HBox.margin>
-                              <Insets left="5.0" right="5.0" />
-                           </HBox.margin>
-                        </TextField>
-                        <Button fx:id="searchButton" minHeight="40.0" minWidth="59.0" mnemonicParsing="false" text="Search">
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor></Button>
-                     </children>
-                     <padding>
-                        <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
-                     </padding>
-                  </HBox>
-                  <VBox fx:id="categories" minHeight="-Infinity" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: white;">
-                     <children>
-                        <Label fx:id="categoriesLabel" maxHeight="-Infinity" prefHeight="20.0" text="Categories">
-                           <font>
-                              <Font name="System Bold" size="18.0" />
-                           </font>
-                           <VBox.margin>
-                              <Insets />
-                           </VBox.margin>
-                        </Label>
-                        <FlowPane fx:id="categoryItems" prefHeight="70.0">
-                           <VBox.margin>
-                              <Insets top="10.0" />
-                           </VBox.margin>
-                           <children>
-                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="35.0" stroke="BLACK" strokeType="INSIDE" width="90.0" />
-                           </children>
-                        </FlowPane>
-                     </children>
-                     <VBox.margin>
-                        <Insets bottom="5.0" top="5.0" />
-                     </VBox.margin>
-                     <padding>
-                        <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
-                     </padding>
-                  </VBox>
-                  <VBox fx:id="mostOrdered" minHeight="150.0" prefHeight="150.0" prefWidth="928.0" style="-fx-background-color: white;">
-                     <children>
-                        <Label fx:id="mostOrderedLabel" maxHeight="-Infinity" prefHeight="20.0" text="Most Ordered">
-                           <font>
-                              <Font name="System Bold" size="18.0" />
-                           </font>
-                        </Label>
-                        <FlowPane fx:id="mostOrderedItems" hgap="10.0" prefHeight="91.0" prefWidth="898.0" vgap="10.0">
-                           <VBox.margin>
-                              <Insets top="10.0" />
-                           </VBox.margin>
-                           <children>
-                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="70.0" stroke="BLACK" strokeType="INSIDE" width="210.0" />
-                           </children>
-                        </FlowPane>
-                     </children>
-                     <VBox.margin>
-                        <Insets bottom="5.0" />
-                     </VBox.margin>
-                     <padding>
-                        <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
-                     </padding>
-                  </VBox>
-                  <VBox fx:id="popular" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: white;" VBox.vgrow="ALWAYS">
-                     <padding>
-                        <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
-                     </padding>
-                     <children>
-                        <Label fx:id="menuLabel" maxHeight="-Infinity" prefHeight="20.0" text="Menu">
-                           <font>
-                              <Font name="System Bold" size="18.0" />
-                           </font>
-                           <padding>
-                              <Insets bottom="10.0" />
-                           </padding>
-                        </Label>
-                        <FlowPane fx:id="foodItems" maxHeight="-Infinity" prefWrapLength="308.0" VBox.vgrow="ALWAYS" />
-                     </children>
-                  </VBox>
-               </children>
-               <padding>
-                  <Insets right="5.0" />
-               </padding>
-            </VBox>
-         </content>
-      </ScrollPane>
-   </center>
-   <right>
-      <VBox fx:id="orderDetails" alignment="TOP_CENTER" minWidth="320.0" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: white;">
          <children>
-            <HBox fx:id="orderHeader" prefHeight="70.0" prefWidth="200.0">
-               <children>
-                  <VBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
+            <ScrollPane fx:id="scrollPane" fitToHeight="true" fitToWidth="true" HBox.hgrow="ALWAYS">
+               <content>
+                  <VBox fx:id="container" prefHeight="200.0" prefWidth="100.0">
                      <children>
-                        <HBox alignment="CENTER_LEFT">
+                        <HBox fx:id="searchBar" alignment="CENTER_LEFT" minHeight="80.0" style="-fx-background-color: white;">
                            <children>
-                              <Label prefHeight="30.0" prefWidth="263.0" text="Order Details">
+                              <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../image/Magnifying_glass_icon.svg.png" />
+                                 </image>
+                              </ImageView>
+                              <TextField fx:id="searchField" promptText="Search Something" HBox.hgrow="ALWAYS">
+                                 <HBox.margin>
+                                    <Insets left="5.0" right="5.0" />
+                                 </HBox.margin>
+                              </TextField>
+                              <Button fx:id="searchButton" minHeight="40.0" minWidth="59.0" mnemonicParsing="false" text="Search">
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </Button>
+                           </children>
+                           <padding>
+                              <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
+                           </padding>
+                        </HBox>
+                        <VBox fx:id="categories" minHeight="-Infinity" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: white;">
+                           <children>
+                              <Label fx:id="categoriesLabel" maxHeight="-Infinity" prefHeight="20.0" text="Categories">
                                  <font>
-                                    <Font name="System Bold" size="20.0" />
+                                    <Font name="System Bold" size="18.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                              </Label>
+                              <FlowPane fx:id="categoryItems" hgap="5.0" prefHeight="70.0">
+                                 <VBox.margin>
+                                    <Insets top="10.0" />
+                                 </VBox.margin>
+                                 <children>
+                                    <HBox fx:id="cafeCategory" prefHeight="40.0" prefWidth="110.0" style="-fx-background-color: transparent; -fx-border-color: #e2e2e2; -fx-border-radius: 8;" styleClass="category-button">
+                                       <children>
+                                          <Rectangle arcHeight="16.0" arcWidth="16.0" fill="DODGERBLUE" height="40.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0" width="40.0" />
+                                          <VBox prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
+                                             <children>
+                                                <Label prefHeight="17.0" prefWidth="73.0" text="Café">
+                                                   <VBox.margin>
+                                                      <Insets left="5.0" top="3.0" />
+                                                   </VBox.margin>
+                                                </Label>
+                                                <Label text="0 Sản phẩm">
+                                                   <VBox.margin>
+                                                      <Insets left="5.0" />
+                                                   </VBox.margin>
+                                                   <font>
+                                                      <Font size="11.0" />
+                                                   </font>
+                                                </Label>
+                                             </children>
+                                             <cursor>
+                                                <Cursor fx:constant="HAND" />
+                                             </cursor>
+                                          </VBox>
+                                       </children>
+                                    </HBox>
+                                    <HBox fx:id="traCategory" prefHeight="35.0" prefWidth="110.0" style="-fx-background-color: transparent; -fx-border-color: #e2e2e2; -fx-border-radius: 8;" styleClass="category-button">
+                                       <children>
+                                          <Rectangle arcHeight="16.0" arcWidth="16.0" fill="DODGERBLUE" height="40.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0" width="40.0" />
+                                          <VBox prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
+                                             <children>
+                                                <Label prefHeight="17.0" prefWidth="73.0" text="Trà">
+                                                   <VBox.margin>
+                                                      <Insets left="5.0" top="3.0" />
+                                                   </VBox.margin>
+                                                </Label>
+                                                <Label text="0 Sản phẩm">
+                                                   <font>
+                                                      <Font size="11.0" />
+                                                   </font>
+                                                   <VBox.margin>
+                                                      <Insets left="5.0" />
+                                                   </VBox.margin>
+                                                </Label>
+                                             </children>
+                                          </VBox>
+                                       </children>
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
+                                    </HBox>
+                                    <HBox fx:id="banhNgotCategory" prefHeight="35.0" prefWidth="110.0" style="-fx-background-color: transparent; -fx-border-color: #e2e2e2; -fx-border-radius: 8;" styleClass="category-button">
+                                       <children>
+                                          <Rectangle arcHeight="16.0" arcWidth="16.0" fill="DODGERBLUE" height="40.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0" width="40.0" />
+                                          <VBox prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
+                                             <children>
+                                                <Label alignment="TOP_LEFT" prefHeight="17.0" prefWidth="59.0" text="Bánh ngọt" wrapText="true">
+                                                   <VBox.margin>
+                                                      <Insets left="5.0" top="3.0" />
+                                                   </VBox.margin>
+                                                </Label>
+                                                <Label text="0 Sản phẩm">
+                                                   <font>
+                                                      <Font size="11.0" />
+                                                   </font>
+                                                   <VBox.margin>
+                                                      <Insets left="5.0" />
+                                                   </VBox.margin>
+                                                </Label>
+                                             </children>
+                                          </VBox>
+                                       </children>
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
+                                    </HBox>
+                                 </children>
+                              </FlowPane>
+                           </children>
+                           <VBox.margin>
+                              <Insets bottom="5.0" top="5.0" />
+                           </VBox.margin>
+                           <padding>
+                              <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
+                           </padding>
+                        </VBox>
+                        <VBox fx:id="mostOrdered" minHeight="150.0" prefHeight="150.0" prefWidth="928.0" style="-fx-background-color: white;">
+                           <children>
+                              <Label fx:id="mostOrderedLabel" maxHeight="-Infinity" prefHeight="20.0" text="Most Ordered">
+                                 <font>
+                                    <Font name="System Bold" size="18.0" />
                                  </font>
                               </Label>
+                              <FlowPane fx:id="mostOrderedItems" hgap="10.0" prefHeight="91.0" prefWidth="898.0" vgap="10.0">
+                                 <VBox.margin>
+                                    <Insets top="10.0" />
+                                 </VBox.margin>
+                                 <children>
+                                    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="70.0" stroke="BLACK" strokeType="INSIDE" width="210.0" />
+                                 </children>
+                              </FlowPane>
+                           </children>
+                           <VBox.margin>
+                              <Insets bottom="5.0" />
+                           </VBox.margin>
+                           <padding>
+                              <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
+                           </padding>
+                        </VBox>
+                        <VBox fx:id="popular" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: white;" VBox.vgrow="ALWAYS">
+                           <padding>
+                              <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
+                           </padding>
+                           <children>
+                              <Label fx:id="menuLabel" maxHeight="-Infinity" prefHeight="20.0" text="Menu">
+                                 <font>
+                                    <Font name="System Bold" size="18.0" />
+                                 </font>
+                                 <padding>
+                                    <Insets bottom="10.0" />
+                                 </padding>
+                              </Label>
+                              <FlowPane fx:id="foodItems" maxHeight="-Infinity" prefWrapLength="308.0" VBox.vgrow="ALWAYS" />
+                           </children>
+                        </VBox>
+                     </children>
+                     <padding>
+                        <Insets right="5.0" />
+                     </padding>
+                  </VBox>
+               </content>
+            </ScrollPane>
+            <VBox fx:id="orderDetails" alignment="TOP_CENTER" minWidth="320.0" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: white;">
+               <children>
+                  <HBox fx:id="orderHeader" prefHeight="70.0" prefWidth="200.0">
+                     <children>
+                        <VBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
+                           <children>
+                              <HBox alignment="CENTER_LEFT">
+                                 <children>
+                                    <Label prefHeight="30.0" prefWidth="263.0" text="Order Details">
+                                       <font>
+                                          <Font name="System Bold" size="20.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </HBox>
+                              <Label text="Order Id" />
+                           </children>
+                        </VBox>
+                        <Button fx:id="clearButton" minWidth="45.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="64.0" style="-fx-background-color: white; -fx-border-color: #e2e2e2; -fx-border-radius: 6;" text="Clear">
+                           <HBox.margin>
+                              <Insets right="10.0" top="20.0" />
+                           </HBox.margin>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Button>
+                     </children>
+                  </HBox>
+                  <StackPane style="-fx-background-color: #e2e2e2; -fx-background-radius: 6;">
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                     <children>
+                        <Region fx:id="hightLightRegion" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="25.0" prefWidth="128.0" translateX="-72.0" />
+                        <HBox fx:id="orderTypes" alignment="CENTER" prefHeight="33.0" prefWidth="288.0" style="-fx-background-color: transparent; -fx-background-radius: 6;">
+                           <children>
+                              <Button fx:id="dineInButton" minWidth="-Infinity" mnemonicParsing="false" prefHeight="25.0" prefWidth="144.0" styleClass="tab-button" text="Dine In" textFill="#9e9e9e" HBox.hgrow="ALWAYS">
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </Button>
+                              <Button fx:id="takeAwayButton" minWidth="-Infinity" mnemonicParsing="false" prefHeight="25.0" prefWidth="144.0" styleClass="tab-button" text="Take Away" textFill="#9e9e9e" HBox.hgrow="ALWAYS">
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </Button>
                            </children>
                         </HBox>
-                        <Label text="Order Id" />
                      </children>
+                  </StackPane>
+                  <VBox fx:id="orderList" prefHeight="200.0" prefWidth="100.0" VBox.vgrow="ALWAYS">
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
                   </VBox>
-                  <Button fx:id="clearButton" minWidth="45.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="64.0" style="-fx-background-color: white; -fx-border-color: #e2e2e2; -fx-border-radius: 6;" text="Clear">
-                     <HBox.margin>
-                        <Insets right="10.0" top="20.0" />
-                     </HBox.margin>
+                  <GridPane prefHeight="70.0" prefWidth="288.0">
+                     <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                     </rowConstraints>
+                     <children>
+                        <Label fx:id="totalLabel" text="Total" GridPane.rowIndex="2">
+                           <font>
+                              <Font name="System Bold" size="20.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="totalPrice" alignment="CENTER_RIGHT" prefHeight="30.0" prefWidth="156.0" text="\$0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                           <font>
+                              <Font name="System Bold" size="20.0" />
+                           </font>
+                        </Label>
+                        <Label text="Subtotal" textFill="#b2b2b2">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Label>
+                        <Label text="Tax 8%" textFill="#b2b2b2" GridPane.rowIndex="1">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="subtotalPrice" alignment="CENTER_RIGHT" prefHeight="21.0" prefWidth="149.0" text="\$0" textFill="#b2b2b2" GridPane.columnIndex="1">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="taxPrice" alignment="CENTER_RIGHT" prefHeight="21.0" prefWidth="146.0" text="\$0" textFill="#b2b2b2" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Label>
+                     </children>
+                     <VBox.margin>
+                        <Insets bottom="10.0" />
+                     </VBox.margin>
+                  </GridPane>
+                  <Button fx:id="payButton" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" text="Pay 0$">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Button>
-               </children></HBox>
-            <StackPane style="-fx-background-color: #e2e2e2; -fx-background-radius: 6;">
-               <VBox.margin>
-                  <Insets />
-               </VBox.margin>
-               <children>
-                  <Region fx:id="hightLightRegion" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="25.0" prefWidth="128.0" translateX="-72.0" />
-                  <HBox fx:id="orderTypes" alignment="CENTER" prefHeight="33.0" prefWidth="288.0" style="-fx-background-color: transparent; -fx-background-radius: 6;">
-                     <children>
-                        <Button fx:id="dineInButton" minWidth="-Infinity" mnemonicParsing="false" prefHeight="25.0" prefWidth="144.0" styleClass="tab-button" text="Dine In" textFill="#9e9e9e" HBox.hgrow="ALWAYS">
-                           <HBox.margin>
-                              <Insets />
-                           </HBox.margin>
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                        </Button>
-                        <Button fx:id="takeAwayButton" minWidth="-Infinity" mnemonicParsing="false" prefHeight="25.0" prefWidth="144.0" styleClass="tab-button" text="Take Away" textFill="#9e9e9e" HBox.hgrow="ALWAYS">
-                           <HBox.margin>
-                              <Insets />
-                           </HBox.margin>
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                        </Button>
-                     </children>
-                  </HBox>
                </children>
-            </StackPane>
-            <VBox fx:id="orderList" prefHeight="200.0" prefWidth="100.0" VBox.vgrow="ALWAYS">
-               <VBox.margin>
-                  <Insets top="10.0" />
-               </VBox.margin>
             </VBox>
-            <GridPane prefHeight="70.0" prefWidth="288.0">
-              <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-              </columnConstraints>
-              <rowConstraints>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-              </rowConstraints>
-               <children>
-                  <Label fx:id="totalLabel" text="Total" GridPane.rowIndex="2">
-                     <font>
-                        <Font name="System Bold" size="20.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="totalPrice" alignment="CENTER_RIGHT" prefHeight="30.0" prefWidth="156.0" text="\$0" GridPane.columnIndex="1" GridPane.rowIndex="2">
-                     <font>
-                        <Font name="System Bold" size="20.0" />
-                     </font>
-                  </Label>
-                  <Label text="Subtotal" textFill="#b2b2b2">
-                     <font>
-                        <Font size="15.0" />
-                     </font>
-                  </Label>
-                  <Label text="Tax 8%" textFill="#b2b2b2" GridPane.rowIndex="1">
-                     <font>
-                        <Font size="15.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="subtotalPrice" alignment="CENTER_RIGHT" prefHeight="21.0" prefWidth="149.0" text="\$0" textFill="#b2b2b2" GridPane.columnIndex="1">
-                     <font>
-                        <Font size="15.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="taxPrice" alignment="CENTER_RIGHT" prefHeight="21.0" prefWidth="146.0" text="\$0" textFill="#b2b2b2" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                     <font>
-                        <Font size="15.0" />
-                     </font>
-                  </Label>
-               </children>
-               <VBox.margin>
-                  <Insets bottom="10.0" />
-               </VBox.margin>
-            </GridPane>
-            <Button fx:id="payButton" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" text="Pay 0$">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor></Button>
          </children>
-         <BorderPane.margin>
-            <Insets />
-         </BorderPane.margin>
-      </VBox>
-   </right>
+      </HBox>
+   </center>
    <padding>
       <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
    </padding>

@@ -29,6 +29,8 @@ public class LoginController {
     public void initialize() {
         setLogo();
         loginButton.setOnAction(event -> handleLogin());
+        passwordField.setOnAction(event -> handleLogin());
+        usernameField.setOnAction(event -> handleLogin());
     }
     
     private void setLogo() {
@@ -49,8 +51,7 @@ public class LoginController {
                 if (userDAO.getUserRole(username).equalsIgnoreCase("admin")) {
                     switchToMainUI();
                 } else {
-                    System.out.println("You do not have admin privileges");
-                    
+                    switchToMainUI();
                 }
             } else {
                 System.out.println("Invalid username or password");

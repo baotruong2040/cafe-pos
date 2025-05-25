@@ -31,6 +31,12 @@ public class MenuCardController {
     MainController mainController;
     MenuItem menuItem;
 
+    @FXML
+    public void initialize() {
+        addButton.setOnAction(event -> addToCart());
+
+    }
+
     public MenuItem getMenuItem() {
         return menuItem;
     }
@@ -40,6 +46,7 @@ public class MenuCardController {
     }
 
     public void setMenuItem(MenuItem item) {
+        this.menuItem = item;
         nameLabel.setText(item.getName());
         priceLabel.setText(String.valueOf(item.getPrice())+" VNĐ");
         String imagePath = item.getImagePath();
@@ -54,10 +61,16 @@ public class MenuCardController {
 
     public void addToCart() {
         if (mainController.orderType.equals("DineIn")) {
-            mainController.dineInController.addToCart(mainController.menuCardController.getMenuItem());
-        } else {
-            mainController.takeAwayController.addToCart(mainController.menuCardController.getMenuItem());
-            
+            mainController.dineInController.addToCart(menuItem);
+        } else if (mainController.orderType.equals("TakeAway")) {
+            mainController.takeAwayController.addToCart(menuItem);
+        }
+    }
+    public void removeFromCart() {
+        if (mainController.orderType.equals("DineIn")) {
+            mainController.dineInController.deleteOrderedItem(menuItem);;
+        } else if (mainController.orderType.equals("TakeAway")) {
+            mainController.takeAwayController.deleteOrderedItem(menuItem);;
         }
     }
 }

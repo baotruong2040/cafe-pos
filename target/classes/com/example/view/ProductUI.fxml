@@ -12,8 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="725.0" prefWidth="1270.0" style="-fx-background-color: #e2e2e2;" stylesheets="@style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="725.0" prefWidth="1270.0" style="-fx-background-color: #e2e2e2;" stylesheets="@style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.controller.ProductController">
    <content>
       <VBox prefHeight="200.0" prefWidth="100.0">
          <padding>

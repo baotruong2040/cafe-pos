@@ -9,8 +9,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-
-<HBox fx:id="orderedItemCard" alignment="CENTER_LEFT" prefHeight="70.0" prefWidth="280.0" style="-fx-border-radius: 10; -fx-background-color: white; -fx-border-color: e2e2e2;" stylesheets="@style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<HBox fx:id="orderedItemCard" alignment="CENTER_LEFT" prefHeight="70.0" prefWidth="280.0" style="-fx-border-radius: 10; -fx-background-color: white; -fx-border-color: e2e2e2;" stylesheets="@style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.controller.OrderedItemController">
    <children>
       <Rectangle fx:id="orderedImage" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="65.0" strokeType="INSIDE" style="-fx-arc-height: 20; -fx-arc-width: 20;" width="65.0">
          <HBox.margin>

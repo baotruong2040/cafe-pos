@@ -16,6 +16,38 @@
     -fx-font-size: 20;
 }
 
+.nav-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: #a1a1aa ;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+    -fx-scale-x: 1;
+    -fx-scale-y: 1;
+    transition: all 0.2s ease-out;
+}
+
+.nav-button:hover {
+    -fx-text-fill: white;
+    -fx-background-color: #3a3a3a;
+    -fx-border-color: #6d6d6d;  
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+}
+
+.nav-button:pressed {
+    -fx-text-fill: white;
+    -fx-background-color: #4a4a4a;
+    -fx-border-color: #6d6d6d;  
+    -fx-scale-x: 1;
+    -fx-scale-y: 1;
+}
+
+.nav-button-actived {
+    -fx-text-fill: white;
+    -fx-background-color: #3a3a3a;
+    -fx-border-color: #6d6d6d;  
+}
+
 .scroll-pane {
     -fx-hbar-policy: as-needed;
     -fx-vbar-policy: as-needed; 
@@ -51,7 +83,14 @@
     -fx-border-radius: 30;
     -fx-font-family: "Arial";
     -fx-font-weight: bold;
+    -fx-scale-x: 1;
+    -fx-scale-y: 1;
+    transition: all 0.2s ease-out;
+}
 
+#searchButton:hover {
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
 }
 
 #categories{
@@ -65,6 +104,14 @@
 #categoryItems{
     -fx-pref-height: 80;
     -fx-spacing: 10;
+}
+
+.category-button {
+    -fx-translate-y: 0;
+    transition: -fx-translate-y 0.2s ease-out;
+}
+.category-button:hover {
+    -fx-translate-y: -3;
 }
 
 #mostOrdered {
@@ -148,7 +195,12 @@
     -fx-background-color: white;
     -fx-background-radius: 10;
     -fx-padding: 10;
+    -fx-translate-x: -72;
+
+    transition: all 0.3s ease-out;
 }
+
+
 
 #addProductButton {
     -fx-text-fill: white;
@@ -205,3 +257,4 @@
 #minusButton:hover {
     -fx-border-color: black;
 }
+
