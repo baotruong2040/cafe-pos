@@ -5,23 +5,45 @@ import java.util.List;
 import com.example.model.MenuItem;
 import com.example.dao.MenuItemDAO;
 
+import javafx.animation.Interpolator;
+import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
+import javafx.util.Duration;
 
 public class MainController {
+    //navigation bar
     @FXML
     Circle logoCircle;
     @FXML
+    Button dashboardNavButton;
+    @FXML
+    Button menuNavButton;
+    @FXML
+    Button productNavButton;
+    @FXML
+    Button settingNavButton;
+    // main UI
+    @FXML
     BorderPane MainUI;
+    @FXML
+    HBox menu;
+    @FXML
+    Button searchButton;
+    @FXML
+    TextField searchField;
     @FXML 
     FlowPane foodItems;
     @FXML
@@ -42,34 +64,73 @@ public class MainController {
     Button clearButton;
     @FXML
     Button payButton;
+    @FXML
+    HBox allCategory;
+    @FXML
+    HBox cafeCategory;
+    @FXML
+    HBox traCategory;
+    @FXML
+    HBox banhNgotCategory;
+    @FXML 
+    HBox nuocEpCategory;
+    @FXML
+    ScrollPane scrollPane;
+
+    ScrollPane productUI;
+    ScrollPane dashboardUI;
 
     MenuItemDAO menuItemDAO = new MenuItemDAO();
-    MenuCardController menuCardController;
-    List<MenuItem> menuItems = menuItemDAO.findAll();
     DineInController dineInController;
     TakeAwayController takeAwayController;
+    ProductController productController;
+    DashboardController dashboardController;
     String orderType = "DineIn";
-    Button curreButton = dineInButton; //for highlighting the current button
+    Button currentButton = dineInButton; //for highlighting the current button
+    String currentCategory = "All"; //for filtering menu items by category
+    Button currentNavigationButton;
     @FXML
     public void initialize() {
         setLogo();
-        loadMenuItemsToMenu();
+        loadUI();
+        loadMenuItemsToMenu(currentCategory);
         switchToDineInUI();
+        currentNavigationButton = menuNavButton;
+        dineInButton.getStyleClass().add("tab-button-chosen");
+        menuNavButton.getStyleClass().add("nav-button-actived");
         butonSetOnAction();
     }
 
-    private void loadMenuItemsToMenu(){
-        foodItems.getChildren().clear();
-        for (MenuItem item : menuItems) {
-            try {
-                FXMLLoader cardLoader = new FXMLLoader(getClass().getResource("/com/example/view/menuCard.fxml"));
-                Node card = cardLoader.load();
-                MenuCardController cardController = cardLoader.getController();
-                cardController.setMenuItem(item);
-                cardController.setMainController(this);
-                foodItems.getChildren().add(card);
-            } catch (Exception e) {
-                e.printStackTrace();
+    private void loadMenuItemsToMenu(String category){
+        if (category.equalsIgnoreCase("All")) {
+            foodItems.getChildren().clear();
+            List<MenuItem> menuItems = menuItemDAO.findAll();
+            for (MenuItem item : menuItems) {
+                try {
+                    FXMLLoader cardLoader = new FXMLLoader(getClass().getResource("/com/example/view/menuCard.fxml"));
+                    Node card = cardLoader.load();
+                    MenuCardController cardController = cardLoader.getController();
+                    cardController.setMenuItem(item);
+                    cardController.setMainController(this);
+                    foodItems.getChildren().add(card);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }else {
+            foodItems.getChildren().clear();
+            List<MenuItem> menuItems = menuItemDAO.findByCategory(category);
+            for (MenuItem item : menuItems) {
+                try {
+                    FXMLLoader cardLoader = new FXMLLoader(getClass().getResource("/com/example/view/menuCard.fxml"));
+                    Node card = cardLoader.load();
+                    MenuCardController cardController = cardLoader.getController();
+                    cardController.setMenuItem(item);
+                    cardController.setMainController(this);
+                    foodItems.getChildren().add(card);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         }
     }
@@ -114,19 +175,42 @@ public class MainController {
     public void showTotalPrice(double price) {
         double tax = price * 0.08;
         double total = price + tax;
-        // Format the prices to display with ".000 VNĐ"
-        subtotalPrice.setText(String.format("%.3f VNĐ", price/1000));
-        taxPrice.setText(String.format("%.3f VNĐ", tax/1000));
-        totalPrice.setText(String.format("%.3f VNĐ", total/1000));
-        payButton.setText(String.format("Pay %.3f VNĐ", total/1000));
+        if (price == 0) {
+            subtotalPrice.setText(0 + " VNĐ");
+            taxPrice.setText(0 + " VNĐ");
+            totalPrice.setText(0 + " VNĐ");
+            payButton.setText("Pay");
+        }else {
+            subtotalPrice.setText(String.format("%.3f VNĐ", price/1000));
+            taxPrice.setText(String.format("%.3f VNĐ", tax/1000));
+            totalPrice.setText(String.format("%.3f VNĐ", total/1000));
+            payButton.setText(String.format("Pay %.3f VNĐ", total/1000));
+        }
+        
     }
 
     private void butonSetOnAction() {
-        dineInButton.setOnAction(event -> switchToDineInUI());
-        takeAwayButton.setOnAction(event -> switchToTakeAwayUI());
+        dineInButton.setOnAction(event -> {
+            if (currentButton != dineInButton) {
+                takeAwayButton.getStyleClass().remove("tab-button-chosen");
+                dineInButton.getStyleClass().add("tab-button-chosen");
+                translateHighLight(dineInButton);
+                switchToDineInUI();
+                currentButton = dineInButton;
+            }
+        });
+        takeAwayButton.setOnAction(event -> {
+            if (currentButton != takeAwayButton) {
+                dineInButton.getStyleClass().remove("tab-button-chosen");
+                takeAwayButton.getStyleClass().add("tab-button-chosen");
+                translateHighLight(takeAwayButton);
+                switchToTakeAwayUI();
+                currentButton = takeAwayButton; 
+            }
+        });
         clearButton.setOnAction(event -> {
             if (orderType.equals("DineIn")) {
-                dineInController.clearCart();;
+                dineInController.clearCart();
                 dineInController.orderedItems.clear();
                 showTotalPrice(0);
             } else {
@@ -134,7 +218,124 @@ public class MainController {
                 takeAwayController.orderedItems.clear();
                 showTotalPrice(0);
             }
+            loadMenuItemsToMenu(currentCategory);
         });
+
+        allCategory.setOnMouseClicked(event -> {
+            currentCategory = "All";
+            loadMenuItemsToMenu(currentCategory);
+        });
+        cafeCategory.setOnMouseClicked(event -> {
+            currentCategory = "Cà phê";
+            loadMenuItemsToMenu(currentCategory);
+        });
+        traCategory.setOnMouseClicked(event -> {
+            currentCategory = "Trà";
+            loadMenuItemsToMenu(currentCategory);
+        });
+        banhNgotCategory.setOnMouseClicked(event -> {
+            currentCategory = "Bánh ngọt";
+            loadMenuItemsToMenu(currentCategory);
+        });
+        nuocEpCategory.setOnMouseClicked(event -> {
+            currentCategory = "Nước ép";
+            loadMenuItemsToMenu(currentCategory);
+        });
+
+        menuNavButton.setOnAction(event -> {
+            if (currentNavigationButton != menuNavButton) {
+                currentNavigationButton.getStyleClass().remove("nav-button-actived");
+                menuNavButton.getStyleClass().add("nav-button-actived");
+                translateHighLight(menuNavButton);
+                setMenu();
+                currentNavigationButton = menuNavButton;
+            }
+        });
+        dashboardNavButton.setOnAction(event -> {
+            if (currentNavigationButton != dashboardNavButton) {
+                currentNavigationButton.getStyleClass().remove("nav-button-actived");
+                dashboardNavButton.getStyleClass().add("nav-button-actived");
+                translateHighLight(dashboardNavButton);
+                setDashboard();
+                currentNavigationButton = dashboardNavButton;
+            }
+        });
+        productNavButton.setOnAction(event -> {
+            if (currentNavigationButton != productNavButton) {
+                currentNavigationButton.getStyleClass().remove("nav-button-actived");
+                productNavButton.getStyleClass().add("nav-button-actived");
+                translateHighLight(productNavButton);
+                setProduct();
+                currentNavigationButton = productNavButton;
+            }
+        });
+        searchButton.setOnAction(event -> {
+            String searchText = searchField.getText().trim();
+            if (!searchText.isEmpty()) {
+                handleSearch(searchText);
+            } else {
+                loadMenuItemsToMenu(currentCategory);
+            }
+        });
+        
     }
 
+    public void translateHighLight(Button button) {
+        TranslateTransition transition = new TranslateTransition(Duration.seconds(0.3), hightLightRegion);
+        if (button == dineInButton) {
+            transition.setByX(-144);
+        } else if (button == takeAwayButton) {
+            transition.setByX(144);    
+        }
+        transition.setInterpolator(Interpolator.EASE_OUT);
+        transition.setCycleCount(1);
+        transition.setAutoReverse(false);
+        transition.play();
+    }
+
+    private void loadUI() {
+        try {
+            FXMLLoader productLoader = new FXMLLoader(getClass().getResource("/com/example/view/ProductUI.fxml"));
+            productUI = productLoader.load();
+            productController = productLoader.getController();
+            productController.setMainController(this);
+
+            FXMLLoader dashboardLoader = new FXMLLoader(getClass().getResource("/com/example/view/Dashboard.fxml"));
+            dashboardUI = dashboardLoader.load();
+            dashboardController = dashboardLoader.getController();
+            dashboardController.setMainController(this);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void setMenu() {
+        MainUI.setCenter(menu);
+        
+    }
+    private void setProduct() {
+        
+        MainUI.setCenter(productUI);
+    }
+    private void setDashboard() {
+        
+        MainUI.setCenter(dashboardUI);
+    }
+
+    private void handleSearch(String searchText) {
+        foodItems.getChildren().clear();
+        List<MenuItem> menuItems = menuItemDAO.searchByName(searchText, currentCategory, true);
+        for (MenuItem item : menuItems) {
+            try {
+                FXMLLoader cardLoader = new FXMLLoader(getClass().getResource("/com/example/view/menuCard.fxml"));
+                Node card = cardLoader.load();
+                MenuCardController cardController = cardLoader.getController();
+                cardController.setMenuItem(item);
+                cardController.setMainController(this);
+                foodItems.getChildren().add(card);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
 }

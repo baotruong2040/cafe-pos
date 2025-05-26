@@ -21,8 +21,7 @@ public class MenuItem {
 
     private boolean available;
 
-    private int quantity = 1;
-
+    private int quantity;
     @OneToMany(mappedBy = "menuItem", cascade = CascadeType.ALL)
     private List<OrderItem> orderItems;
 

@@ -2,10 +2,13 @@ package com.example.controller;
 
 import com.example.dao.UserDAO;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
@@ -16,12 +19,15 @@ public class LoginController {
     @FXML
     TextField usernameField;
     @FXML
-    TextField passwordField;
+    PasswordField passwordField;
     @FXML
     Button loginButton;
     @FXML
     Rectangle loginLogo;
-
+    @FXML
+    Label notFillWarn;
+    @FXML
+    Label inValidSignIn;
     UserDAO userDAO = new UserDAO();
     MainController mainController;
 
@@ -46,20 +52,21 @@ public class LoginController {
         String username = usernameField.getText();
         String password = passwordField.getText();
 
-        if (!username.isEmpty() || !password.isEmpty()) {
+        if (!username.isEmpty() && !password.isEmpty()) {
             if (userDAO.isValidUser(username, password)) {
+                inValidSignIn.setVisible(false);
                 if (userDAO.getUserRole(username).equalsIgnoreCase("admin")) {
                     switchToMainUI();
                 } else {
                     switchToMainUI();
                 }
             } else {
-                System.out.println("Invalid username or password");
+                inValidSignIn.setVisible(true);
                 
             }
-            
+            notFillWarn.setVisible(false);
         }else {
-            System.out.println("Please enter both username and password");
+            notFillWarn.setVisible(true);
         }
     }
 
@@ -73,7 +80,7 @@ public class LoginController {
             scene.getStylesheets().add(getClass().getResource("/com/example/view/style.css").toExternalForm());
             primaryStage.setTitle("Café Management System");
             primaryStage.setScene(scene);
-            primaryStage.setFullScreen(true);
+            Platform.runLater(() -> primaryStage.setFullScreen(true));
             primaryStage.setFullScreenExitHint("");
             primaryStage.setMinWidth(610);
             primaryStage.show();

@@ -4,8 +4,10 @@
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
@@ -51,7 +53,7 @@
                         <Insets bottom="8.0" />
                      </VBox.margin>
                   </Label>
-                  <TextField fx:id="usernameField" prefHeight="52.0" promptText="admin" style="-fx-background-color: #f9fafb; -fx-border-color: #e5e7eb; -fx-border-width: 2; -fx-border-radius: 12; -fx-background-radius: 12;">
+                  <TextField fx:id="usernameField" prefHeight="52.0" promptText="Enter Username" styleClass="loginField">
                      <padding>
                         <Insets bottom="15.0" left="20.0" right="20.0" top="15.0" />
                      </padding>
@@ -74,19 +76,26 @@
                         <Insets bottom="8.0" />
                      </VBox.margin>
                   </Label>
-                  <TextField fx:id="passwordField" prefHeight="52.0" promptText="Enter your password" style="-fx-background-color: #f9fafb; -fx-border-color: #e5e7eb; -fx-border-width: 2; -fx-font-size: 16; -fx-border-radius: 12; -fx-background-radius: 12;">
-                     <padding>
-                        <Insets bottom="15.0" left="20.0" right="20.0" top="15.0" />
-                     </padding>
-                     <font>
-                        <Font size="16.0" />
-                     </font>
-                  </TextField>
+                  <PasswordField fx:id="passwordField" prefHeight="52.0" promptText="Enter password" styleClass="loginField" />
                </children>
                <VBox.margin>
                   <Insets bottom="30.0" />
                </VBox.margin>
             </VBox>
+            <StackPane>
+               <children>
+                  <Label fx:id="notFillWarn" alignment="CENTER" prefHeight="17.0" prefWidth="372.0" text="*Please fill all the field" textFill="RED" visible="false">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="inValidSignIn" alignment="CENTER" prefHeight="17.0" prefWidth="372.0" text="*Username or Password is Incorrect" textFill="RED" visible="false">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Label>
+               </children>
+            </StackPane>
             <Button fx:id="loginButton" alignment="CENTER" minHeight="-Infinity" mnemonicParsing="false" prefHeight="48.0" prefWidth="320.0" style="-fx-background-color: linear-gradient(to right top, #4f46e5, #7c3aed); -fx-font-weight: bold; -fx-background-radius: 12; -fx-font-size: 16;" text="Sign in" textAlignment="CENTER" textFill="WHITE">
                <VBox.margin>
                   <Insets top="10.0" />

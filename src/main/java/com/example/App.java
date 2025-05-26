@@ -21,7 +21,7 @@ public class App extends Application {
         } catch (Exception e) {
             System.err.println("Failed to initialize Hibernate: " + e.getMessage());
             e.printStackTrace();
-            return; // Exit if Hibernate fails to initialize
+            return;
         }
         
         FXMLLoader rootLoader = new FXMLLoader(getClass().getResource("/com/example/view/loginUI.fxml"));

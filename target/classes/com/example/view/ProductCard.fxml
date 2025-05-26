@@ -12,12 +12,12 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="389.0" style="-fx-background-radius: 16; -fx-background-color: white;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<VBox fx:id="productCard" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="389.0" style="-fx-background-radius: 16; -fx-background-color: white; -fx-border-color: #e2e2e2; -fx-border-radius: 16; -fx-border-width: 2;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.controller.ProductCardController">
    <children>
       <StackPane alignment="TOP_LEFT">
          <children>
-            <Rectangle arcHeight="32.0" arcWidth="32.0" fill="DODGERBLUE" height="200.0" stroke="BLACK" strokeType="INSIDE" width="389.0" />
-            <Label fx:id="statusLabel" alignment="CENTER" prefHeight="24.0" prefWidth="73.0" style="-fx-background-color: #10b981; -fx-background-radius: 20;" text="Avaliable" textFill="WHITE">
+            <Rectangle fx:id="productCardImage" arcHeight="32.0" arcWidth="32.0" fill="DODGERBLUE" height="200.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="386.0" />
+            <Label fx:id="statusLabel" alignment="CENTER" prefHeight="24.0" prefWidth="73.0" style="-fx-background-color: #10b981; -fx-background-radius: 20;" text="Available" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>

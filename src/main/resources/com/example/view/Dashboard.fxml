@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<ScrollPane fitToWidth="true" hbarPolicy="NEVER" prefHeight="725.0" prefWidth="1270.0" style="-fx-background-color: #e2e2e2;" stylesheets="@style.css" vbarPolicy="NEVER" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.controller.DashboardController">
+   <content>
+      <VBox prefHeight="795.0" prefWidth="1255.0">
+         <padding>
+            <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+         </padding>
+         <children>
+            <HBox prefHeight="104.0" prefWidth="200.0">
+               <children>
+                  <VBox prefHeight="104.0">
+                     <children>
+                        <Label prefHeight="43.0" text="Dashboard">
+                           <font>
+                              <Font name="System Bold" size="32.0" />
+                           </font>
+                        </Label>
+                        <Label prefHeight="21.0" text="Manage your café shop efficiently">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </VBox>
+               </children>
+               <VBox.margin>
+                  <Insets bottom="30.0" />
+               </VBox.margin>
+            </HBox>
+            <VBox prefHeight="401.0" prefWidth="1195.0" VBox.vgrow="ALWAYS">
+               <children>
+                  <HBox prefHeight="212.0" prefWidth="200.0" spacing="24.0">
+                     <children>
+                        <VBox prefHeight="200.0" prefWidth="284.0" styleClass="stat-container">
+                           <padding>
+                              <Insets bottom="24.0" left="24.0" right="24.0" top="24.0" />
+                           </padding>
+                           <children>
+                              <HBox prefHeight="48.0" prefWidth="155.0">
+                                 <children>
+                                    <VBox alignment="CENTER" prefHeight="200.0" prefWidth="48.0" style="-fx-background-color: #3498db; -fx-background-radius: 12;">
+                                       <children>
+                                          <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../image/order.png" />
+                                             </image>
+                                          </ImageView>
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </HBox>
+                              <HBox prefHeight="48.0" prefWidth="200.0">
+                                 <children>
+                                    <Label fx:id="orderStat" styleClass="stat-label" text="0">
+                                       <font>
+                                          <Font size="32.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                                 <VBox.margin>
+                                    <Insets bottom="4.0" />
+                                 </VBox.margin>
+                              </HBox>
+                              <Label text="Đơn hàng hôm nay">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets bottom="4.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <HBox prefHeight="24.0" prefWidth="200.0">
+                                 <children>
+                                    <Label fx:id="orderPercent" prefHeight="24.0" prefWidth="173.0" styleClass="percent-label" text="+0% so với hôm qua" />
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                        <VBox prefHeight="200.0" prefWidth="284.0" styleClass="stat-container">
+                           <padding>
+                              <Insets bottom="24.0" left="24.0" right="24.0" top="24.0" />
+                           </padding>
+                           <children>
+                              <HBox prefHeight="48.0" prefWidth="200.0">
+                                 <children>
+                                    <VBox alignment="CENTER" prefHeight="200.0" prefWidth="48.0" style="-fx-background-color: #27ae60; -fx-background-radius: 12;">
+                                       <children>
+                                          <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../image/money.png" />
+                                             </image>
+                                          </ImageView>
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </HBox>
+                              <HBox prefHeight="48.0" prefWidth="200.0">
+                                 <children>
+                                    <Label fx:id="moneyStat" styleClass="stat-label" text="0">
+                                       <font>
+                                          <Font size="32.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                                 <VBox.margin>
+                                    <Insets bottom="4.0" />
+                                 </VBox.margin>
+                              </HBox>
+                              <Label text="Doanh thu hôm nay">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets bottom="4.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <HBox prefHeight="24.0" prefWidth="200.0">
+                                 <children>
+                                    <Label fx:id="moneyPercent" prefHeight="24.0" prefWidth="174.0" styleClass="percent-label" text="+0% so với hôm qua" />
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                        <VBox prefHeight="200.0" prefWidth="284.0" styleClass="stat-container">
+                           <padding>
+                              <Insets bottom="24.0" left="24.0" right="24.0" top="24.0" />
+                           </padding>
+                           <children>
+                              <HBox prefHeight="48.0" prefWidth="200.0">
+                                 <children>
+                                    <VBox alignment="CENTER" prefHeight="200.0" prefWidth="48.0">
+                                       <children>
+                                          <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../image/order.png" />
+                                             </image>
+                                          </ImageView>
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </HBox>
+                              <HBox prefHeight="48.0" prefWidth="200.0">
+                                 <children>
+                                    <Label fx:id="weekOrderStat" styleClass="stat-label" text="0">
+                                       <font>
+                                          <Font size="32.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                                 <VBox.margin>
+                                    <Insets bottom="4.0" />
+                                 </VBox.margin>
+                              </HBox>
+                              <Label text="Đơn hàng hôm nay">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets bottom="4.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <HBox prefHeight="24.0" prefWidth="200.0">
+                                 <children>
+                                    <Label fx:id="weekOrderPercent" prefHeight="24.0" prefWidth="177.0" styleClass="percent-label" text="+0% so với hôm qua" />
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                        <VBox prefHeight="200.0" prefWidth="284.0" styleClass="stat-container">
+                           <padding>
+                              <Insets bottom="24.0" left="24.0" right="24.0" top="24.0" />
+                           </padding>
+                           <children>
+                              <HBox prefHeight="48.0" prefWidth="200.0">
+                                 <children>
+                                    <VBox alignment="CENTER" prefHeight="200.0" prefWidth="48.0" style="-fx-background-color: #e67e22; -fx-background-radius: 12;">
+                                       <children>
+                                          <ImageView fitHeight="48.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../image/cafe.png" />
+                                             </image>
+                                          </ImageView>
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </HBox>
+                              <HBox prefHeight="48.0" prefWidth="200.0">
+                                 <children>
+                                    <Label fx:id="itemsStat" styleClass="stat-label" text="0">
+                                       <font>
+                                          <Font size="32.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                                 <VBox.margin>
+                                    <Insets bottom="4.0" />
+                                 </VBox.margin>
+                              </HBox>
+                              <Label text="Món ăn">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets bottom="4.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <HBox prefHeight="24.0" prefWidth="200.0" stylesheets="@style.css">
+                                 <children>
+                                    <Label fx:id="itemsChange" prefHeight="24.0" prefWidth="188.0" styleClass="percent-label" text="+0 món mới" />
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+                  <HBox VBox.vgrow="ALWAYS">
+                     <children>
+                        <VBox prefHeight="198.0" prefWidth="798.0">
+                           <padding>
+                              <Insets bottom="24.0" left="24.0" right="24.0" top="24.0" />
+                           </padding>
+                           <children>
+                              <Label text="Biểu đồ doanh thu tuần">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets bottom="16.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <VBox fx:id="lineChart" prefHeight="200.0" prefWidth="100.0" VBox.vgrow="ALWAYS" />
+                           </children>
+                        </VBox>
+                        <VBox prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
+                           <children>
+                              <Label text="Tỷ lệ danh mục bán được">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Label>
+                              <VBox fx:id="pieChart" prefHeight="349.0" prefWidth="100.0" />
+                           </children>
+                           <padding>
+                              <Insets bottom="24.0" left="24.0" right="24.0" top="24.0" />
+                           </padding>
+                        </VBox>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+         </children>
+      </VBox>
+   </content>
+</ScrollPane>

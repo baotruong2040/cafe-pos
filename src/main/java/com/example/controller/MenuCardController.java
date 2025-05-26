@@ -28,13 +28,31 @@ public class MenuCardController {
     @FXML
     private Label priceLabel;
 
+    @FXML
+    private Label quantityLabel;
+
     MainController mainController;
     MenuItem menuItem;
-
+    int quantity = 0;
     @FXML
     public void initialize() {
-        addButton.setOnAction(event -> addToCart());
-
+        addButton.setOnAction(event -> {
+            addToCart();
+            quantity++;
+            if (quantity > 0) {
+                minusButton.setDisable(false);
+            }
+            quantityLabel.setText(String.valueOf(quantity));
+        });
+        minusButton.setOnAction(event -> {
+            removeFromCart();
+            quantity--;
+            if (quantity < 1) {
+                minusButton.setDisable(true);
+            }
+            quantityLabel.setText(String.valueOf(quantity));
+        });
+        minusButton.setDisable(true);
     }
 
     public MenuItem getMenuItem() {
@@ -72,5 +90,10 @@ public class MenuCardController {
         } else if (mainController.orderType.equals("TakeAway")) {
             mainController.takeAwayController.deleteOrderedItem(menuItem);;
         }
+    }
+    public void clearQuantity() {
+        quantity = 0;
+        quantityLabel.setText(String.valueOf(quantity));
+        minusButton.setDisable(true);
     }
 }

@@ -18,4 +18,46 @@ public class MenuItemDAO extends GenericDAO<MenuItem> {
                 .list();
         }
     }
+
+    public List<MenuItem> findByAvailability(boolean isAvailable) {
+        try (var session = com.example.util.HibernateUtil.getSessionFactory().openSession()) {
+            return session.createQuery(
+                    "FROM MenuItem WHERE available = :isAvailable", MenuItem.class)
+                .setParameter("isAvailable", isAvailable)
+                .list();
+        }
+    }
+
+    public List<MenuItem> findByCategoryAndAvailability(String category, boolean isAvailable) {
+        try (var session = com.example.util.HibernateUtil.getSessionFactory().openSession()) {
+            return session.createQuery(
+                    "FROM MenuItem WHERE category = :category AND available = :isAvailable", MenuItem.class)
+                .setParameter("category", category)
+                .setParameter("isAvailable", isAvailable)
+                .list();
+        }
+    }
+
+    public List<MenuItem> searchByName(String name, String category, boolean isAvailable) {
+        try (var session = com.example.util.HibernateUtil.getSessionFactory().openSession()) {
+            String hql = "FROM MenuItem WHERE LOWER(name) LIKE :name";
+            if (category != null && !category.equals("All")) {
+                hql += " AND category = :category";
+            }
+            if (isAvailable) {
+                hql += " AND available = true";
+            }else {
+                hql += " AND available = false";
+            }
+            var query = session.createQuery(hql, MenuItem.class);
+            query.setParameter("name", "%" + name.toLowerCase() + "%");
+            if (category != null && !category.equals("All")) {
+                query.setParameter("category", category);
+            }
+            return query.list();
+        }catch (Exception e) {
+            e.printStackTrace();
+            return List.of();
+        }
+    }
 }
