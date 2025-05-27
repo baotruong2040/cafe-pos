@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.example.model.MenuItem;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -48,7 +49,8 @@ public class DineInController {
 
     public void loadOrderedList() {
         dineIn.getChildren().clear();
-        for (MenuItem menuItem : orderedItems) {
+        Platform.runLater(() -> {
+            for (MenuItem menuItem : orderedItems) {
             try {
                 FXMLLoader orderedItemLoader = new FXMLLoader(getClass().getResource("/com/example/view/orderedItem.fxml"));
                 Node orderedItemBox = orderedItemLoader.load();
@@ -60,6 +62,7 @@ public class DineInController {
                 e.printStackTrace();
             }
         }
+        });
     }
 
     public VBox getDineIn() {

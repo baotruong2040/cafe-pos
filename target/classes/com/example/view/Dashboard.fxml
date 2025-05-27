@@ -11,7 +11,7 @@
 
 <ScrollPane fitToWidth="true" hbarPolicy="NEVER" prefHeight="725.0" prefWidth="1270.0" style="-fx-background-color: #e2e2e2;" stylesheets="@style.css" vbarPolicy="NEVER" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.controller.DashboardController">
    <content>
-      <VBox prefHeight="795.0" prefWidth="1255.0">
+      <VBox prefHeight="815.0" prefWidth="1255.0">
          <padding>
             <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
          </padding>
@@ -34,7 +34,7 @@
                   </VBox>
                </children>
                <VBox.margin>
-                  <Insets bottom="30.0" />
+                  <Insets bottom="5.0" />
                </VBox.margin>
             </HBox>
             <VBox prefHeight="401.0" prefWidth="1195.0" VBox.vgrow="ALWAYS">
@@ -161,7 +161,7 @@
                                     <Insets bottom="4.0" />
                                  </VBox.margin>
                               </HBox>
-                              <Label text="Đơn hàng hôm nay">
+                              <Label text="Đơn hàng Trong tuần">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
@@ -171,7 +171,7 @@
                               </Label>
                               <HBox prefHeight="24.0" prefWidth="200.0">
                                  <children>
-                                    <Label fx:id="weekOrderPercent" prefHeight="24.0" prefWidth="177.0" styleClass="percent-label" text="+0% so với hôm qua" />
+                                    <Label fx:id="weekOrderPercent" prefHeight="24.0" prefWidth="177.0" styleClass="percent-label" text="+0% so với tuần trước" />
                                  </children>
                               </HBox>
                            </children>
@@ -222,10 +222,13 @@
                            </children>
                         </VBox>
                      </children>
+                     <VBox.margin>
+                        <Insets bottom="5.0" />
+                     </VBox.margin>
                   </HBox>
                   <HBox VBox.vgrow="ALWAYS">
                      <children>
-                        <VBox prefHeight="198.0" prefWidth="798.0">
+                        <VBox prefHeight="198.0" prefWidth="798.0" style="-fx-background-color: white; -fx-background-radius: 12;">
                            <padding>
                               <Insets bottom="24.0" left="24.0" right="24.0" top="24.0" />
                            </padding>
@@ -241,20 +244,26 @@
                               <VBox fx:id="lineChart" prefHeight="200.0" prefWidth="100.0" VBox.vgrow="ALWAYS" />
                            </children>
                         </VBox>
-                        <VBox prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
+                        <VBox prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: white; -fx-background-radius: 12;" HBox.hgrow="ALWAYS">
                            <children>
                               <Label text="Tỷ lệ danh mục bán được">
                                  <font>
                                     <Font size="18.0" />
                                  </font>
                               </Label>
-                              <VBox fx:id="pieChart" prefHeight="349.0" prefWidth="100.0" />
+                              <VBox fx:id="pieChart" prefHeight="372.0" prefWidth="329.0" />
                            </children>
                            <padding>
                               <Insets bottom="24.0" left="24.0" right="24.0" top="24.0" />
                            </padding>
+                           <HBox.margin>
+                              <Insets left="20.0" />
+                           </HBox.margin>
                         </VBox>
                      </children>
+                     <VBox.margin>
+                        <Insets top="24.0" />
+                     </VBox.margin>
                   </HBox>
                </children>
             </VBox>

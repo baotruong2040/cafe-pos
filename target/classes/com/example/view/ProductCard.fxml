@@ -3,6 +3,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
@@ -16,7 +17,12 @@
    <children>
       <StackPane alignment="TOP_LEFT">
          <children>
-            <Rectangle fx:id="productCardImage" arcHeight="32.0" arcWidth="32.0" fill="DODGERBLUE" height="200.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="386.0" />
+            <StackPane>
+               <children>
+                  <Rectangle arcHeight="32.0" arcWidth="32.0" fill="WHITE" height="200.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="386.0" />
+                  <ImageView fx:id="productCardImage" fitHeight="200.0" fitWidth="386.0" pickOnBounds="true" preserveRatio="true" />
+               </children>
+            </StackPane>
             <Label fx:id="statusLabel" alignment="CENTER" prefHeight="24.0" prefWidth="73.0" style="-fx-background-color: #10b981; -fx-background-radius: 20;" text="Available" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="12.0" />
@@ -27,7 +33,7 @@
             </Label>
          </children>
       </StackPane>
-      <Label fx:id="productNameLabel" alignment="TOP_LEFT" minHeight="-Infinity" prefHeight="55.0" prefWidth="260.0" text="dândadnajndandajndjandjandnadjandjan" textOverrun="CLIP" wrapText="true">
+      <Label fx:id="productNameLabel" alignment="TOP_LEFT" minHeight="-Infinity" prefHeight="55.0" prefWidth="260.0" text="Name" textOverrun="CLIP" wrapText="true">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
@@ -35,7 +41,7 @@
             <Insets bottom="8.0" left="20.0" top="20.0" />
          </VBox.margin>
       </Label>
-      <Label fx:id="productPriceLabel" text="Label">
+      <Label fx:id="productPriceLabel" text="Price">
          <VBox.margin>
             <Insets bottom="15.0" left="20.0" />
          </VBox.margin>

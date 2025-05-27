@@ -351,4 +351,101 @@
     -fx-font-size: 32;
 }
 
+#cancelProductButton{
+    -fx-background-color: white;
+    -fx-font-size: 16;
+    -fx-background-radius: 10;
+    -fx-border-color: #e2e2e2;
+    -fx-border-radius: 10;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 10, 0.0, 0, 3);
+    -fx-translate-y: 0;
+    transition: all 0.2s ease;
+}
 
+#cancelProductButton:hover {
+    -fx-translate-y: -3;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 10, 0.0, 0, 5);
+}
+#cancelProductButton:pressed {
+    -fx-translate-y: 0;
+    -fx-effect: none;
+}
+
+#nameAddField {
+    -fx-background-color: #f9fafb;
+    -fx-background-radius: 12;
+    -fx-border-color: #e5e7eb;
+    -fx-border-radius: 12;
+    -fx-border-width: 2;
+    -fx-font-size: 16;
+    -fx-scale-x: 1;
+    -fx-scale-y: 1;
+    transition: all 0.2s ease-out;
+}
+
+#nameAddField:focused {
+    -fx-border-color: #4f46e5;
+    -fx-border-width: 2;
+    -fx-scale-x: 1.03;
+    -fx-scale-y: 1.03;
+}
+
+#priceAddField {
+    -fx-background-color: #f9fafb;
+    -fx-background-radius: 12;
+    -fx-border-color: #e5e7eb;
+    -fx-border-radius: 12;
+    -fx-border-width: 2;
+    -fx-font-size: 16;
+    -fx-scale-x: 1;
+    -fx-scale-y: 1;
+    transition: all 0.2s ease-out;
+}
+#priceAddField:focused {
+    -fx-border-color: #4f46e5;
+    -fx-border-width: 2;
+    -fx-scale-x: 1.03;
+    -fx-scale-y: 1.03;
+}
+
+#updateProductButton {
+    -fx-text-fill: white;
+    -fx-background-color: #69bbee;
+    -fx-border-width: 0;
+    -fx-background-radius: 10;
+    -fx-background-color: linear-gradient(to top right, #4f46e5, #7c3aed);
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 10, 0.0, 0, 3);
+    -fx-translate-y: 0;
+    transition: all 0.2s ease;
+}
+
+#updateProductButton:hover {
+    -fx-translate-y: -3;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 10, 0.0, 0, 5);
+}
+
+#updateProductButton:pressed {
+    -fx-translate-y: 0;
+    -fx-effect: none;
+}
+
+#addNewProductButton {
+    -fx-text-fill: white;
+    -fx-background-color: #69bbee;
+    -fx-border-width: 0;
+    -fx-background-radius: 10;
+    -fx-background-color: linear-gradient(to top right, #4f46e5, #7c3aed);
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 10, 0.0, 0, 3);
+    -fx-translate-y: 0;
+    transition: all 0.2s ease;
+}
+
+#addNewProductButton:hover {
+    -fx-translate-y: -3;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 10, 0.0, 0, 5);
+}
+
+#addNewProductButton:pressed {
+    -fx-translate-y: 0;
+    -fx-effect: none;
+}

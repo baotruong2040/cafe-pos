@@ -26,7 +26,7 @@ public class App extends Application {
         
         FXMLLoader rootLoader = new FXMLLoader(getClass().getResource("/com/example/view/loginUI.fxml"));
         HBox root = rootLoader.load();
-        Scene scene = new javafx.scene.Scene(root, 1280, 800);
+        Scene scene = new Scene(root, 1280, 800);
         scene.getStylesheets().add(getClass().getResource("/com/example/view/style.css").toExternalForm());
         primaryStage.setTitle("Login - Café Management System");
         primaryStage.getIcons().add(new javafx.scene.image.Image(getClass().getResourceAsStream("/com/example/image/Java.png")));

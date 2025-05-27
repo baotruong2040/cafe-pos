@@ -24,7 +24,7 @@
             <Insets bottom="5.0" top="5.0" />
          </padding>
          <children>
-            <Label fx:id="orderedItemName" alignment="TOP_LEFT" prefHeight="37.0" prefWidth="174.0" text="hduhaidbadbahkdbahdbajdajbdhabdjad'" wrapText="true">
+            <Label fx:id="orderedItemName" alignment="TOP_LEFT" prefHeight="37.0" prefWidth="174.0" text="Name" wrapText="true">
                <VBox.margin>
                   <Insets />
                </VBox.margin>

@@ -66,14 +66,15 @@ public class MenuCardController {
     public void setMenuItem(MenuItem item) {
         this.menuItem = item;
         nameLabel.setText(item.getName());
-        priceLabel.setText(String.valueOf(item.getPrice())+" VNĐ");
+        priceLabel.setText(String.format("%,.0f VNĐ", item.getPrice()));
         String imagePath = item.getImagePath();
         Image image = null;
         try {
             image = new Image(getClass().getResourceAsStream(imagePath));
             cardImage.setFill(new javafx.scene.paint.ImagePattern(image));
         } catch (Exception e) {
-            System.out.println("Image not found: " + imagePath);
+            image = new Image(getClass().getResourceAsStream("/com/example/image/placeHolder.png"));
+            cardImage.setFill(new javafx.scene.paint.ImagePattern(image));  
         }
     }
 

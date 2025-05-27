@@ -49,6 +49,5 @@ public class OrderItem {
         this.price = price;
     }
 
-    // Getters, Setters
     
 }

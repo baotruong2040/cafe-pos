@@ -10,7 +10,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.shape.Rectangle;
 
 public class OrderedItemController {
-     @FXML
+    @FXML
     private Button deleteButton;
 
     @FXML
@@ -27,6 +27,7 @@ public class OrderedItemController {
 
     DineInController dineInController;
     TakeAwayController takeAwayController;
+    MenuItem menuItem;
 
     public void setDineInController(DineInController dineInController) {
         this.dineInController = dineInController;
@@ -37,15 +38,26 @@ public class OrderedItemController {
     }
 
     public void setOrderedItem(MenuItem item) {
+        this.menuItem = item;
         orderedItemName.setText(item.getName());
-        orderedItemPrice.setText(String.valueOf(item.getPrice())+" VNĐ");
+        orderedItemPrice.setText(String.format("%,.0f VNĐ", item.getPrice()));
         String imagePath = item.getImagePath();
         try {
             Image image = new javafx.scene.image.Image(getClass().getResourceAsStream(imagePath));
             orderedImage.setFill(new javafx.scene.paint.ImagePattern(image));
         } catch (Exception e) {
-            System.out.println("Image not found: " + imagePath);
+            Image image = new javafx.scene.image.Image(getClass().getResourceAsStream("/com/example/image/placeHolder.png"));
+            orderedImage.setFill(new javafx.scene.paint.ImagePattern(image));
         }
+        deleteButton.setOnAction(event -> {
+            if (dineInController != null) {
+                dineInController.deleteOrderedItem(menuItem);
+                dineInController.mainController.loadMenuItemsToMenu(dineInController.mainController.currentCategory);
+            } else if (takeAwayController != null) {
+                takeAwayController.deleteOrderedItem(menuItem);
+                takeAwayController.mainController.loadMenuItemsToMenu(takeAwayController.mainController.currentCategory);
+            }
+        });
     }
 
     
