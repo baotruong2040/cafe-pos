@@ -57,17 +57,33 @@ cafe-pos/
 - `orders` - Customer orders
 - `order_items` - Individual items in each order
 
-## Setup Instructions
+## Run Locally
 
-1. Install MySQL 8.0 or higher
-2. Create a database named `cafe_pos`
-3. Configure database connection in `src/main/resources/hibernate.cfg.xml`
-4. Run Maven install:
-   ```bash
-   mvn clean install
-5. Run the application:
-   ```bash
+Clone the project
+
+```bash
+  git clone https://link-to-project
+```
+
+Go to the project directory
+
+```bash
+  cd my-project
+```
+
+Import cafe_pos.sql to your MySQL
+
+Install dependencies
+
+```bash
+  mvn clean install
+```
+
+Run the application
+
+```bash
    mvn JavaFX:run
+```
 
 License
 This project is licensed under the MIT License - see the LICENSE file for details.
