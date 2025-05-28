@@ -59,6 +59,9 @@ public class LoginController {
                     switchToMainUI();
                 } else {
                     switchToMainUI();
+                    mainController.dashboardNavButton.setDisable(true);
+                    mainController.productNavButton.setDisable(true);
+                    mainController.settingNavButton.setDisable(true);
                 }
             } else {
                 inValidSignIn.setVisible(true);

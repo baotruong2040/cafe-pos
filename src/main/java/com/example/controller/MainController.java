@@ -302,7 +302,6 @@ public class MainController {
             if (currentNavigationButton != menuNavButton) {
                 currentNavigationButton.getStyleClass().remove("nav-button-actived");
                 menuNavButton.getStyleClass().add("nav-button-actived");
-                translateHighLight(menuNavButton);
                 setMenu();
                 currentNavigationButton = menuNavButton;
                 Stage stage = (Stage) MainUI.getScene().getWindow();
@@ -314,7 +313,6 @@ public class MainController {
             if (currentNavigationButton != dashboardNavButton) {
                 currentNavigationButton.getStyleClass().remove("nav-button-actived");
                 dashboardNavButton.getStyleClass().add("nav-button-actived");
-                translateHighLight(dashboardNavButton);
                 setDashboard();
                 currentNavigationButton = dashboardNavButton;
             }
@@ -323,7 +321,6 @@ public class MainController {
             if (currentNavigationButton != productNavButton) {
                 currentNavigationButton.getStyleClass().remove("nav-button-actived");
                 productNavButton.getStyleClass().add("nav-button-actived");
-                translateHighLight(productNavButton);
                 setProduct();
                 currentNavigationButton = productNavButton;
                 Stage stage = (Stage) MainUI.getScene().getWindow();
