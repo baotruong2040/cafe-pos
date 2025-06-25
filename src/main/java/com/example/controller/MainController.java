@@ -35,7 +35,6 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
-import javafx.stage.Stage;
 import javafx.util.Duration;
 
 public class MainController {
@@ -334,14 +333,7 @@ public class MainController {
             }
         });
         productNavButton.setOnAction(event -> {
-            if (currentNavigationButton != productNavButton) {
-                currentNavigationButton.getStyleClass().remove("nav-button-actived");
-                productNavButton.getStyleClass().add("nav-button-actived");
-                setProduct();
-                currentNavigationButton = productNavButton;
-                Stage stage = (Stage) MainUI.getScene().getWindow();
-                stage.setFullScreen(false);
-            }
+            switchToProduct();
         });
         searchButton.setOnAction(event -> {
             String searchText = searchField.getText().trim();
@@ -356,6 +348,14 @@ public class MainController {
         });
     }
 
+    public void switchToProduct() {
+        if (currentNavigationButton != productNavButton) {
+                currentNavigationButton.getStyleClass().remove("nav-button-actived");
+                productNavButton.getStyleClass().add("nav-button-actived");
+                setProduct();
+                currentNavigationButton = productNavButton;
+            }
+    }
     public void translateHighLight(Button button) {
         TranslateTransition transition = new TranslateTransition(Duration.seconds(0.3), hightLightRegion);
         if (button == dineInButton) {

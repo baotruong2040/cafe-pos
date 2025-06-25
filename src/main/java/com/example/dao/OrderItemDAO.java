@@ -3,6 +3,8 @@ package com.example.dao;
 import com.example.model.OrderItem;
 import com.example.util.HibernateUtil;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.hibernate.Session;
@@ -31,6 +33,31 @@ public class OrderItemDAO extends GenericDAO<OrderItem> {
             """, Object[].class)
             .setMaxResults(3)
             .list();
+        }
+    }
+
+    public List<Object[]> getWeeklyRevenueByCategory() {
+    try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+        LocalDate sixDaysAgo = LocalDate.now().minusDays(6);
+        LocalDateTime startTime = sixDaysAgo.atStartOfDay();
+        
+        return session.createQuery("""
+            SELECT mi.category, 
+                   SUM(oi.quantity) as totalQuantity,
+                   SUM(oi.price * oi.quantity) as totalRevenue,
+                   COUNT(DISTINCT oi.order.id) as orderCount
+            FROM OrderItem oi
+            JOIN oi.menuItem mi
+            JOIN oi.order o
+            WHERE o.orderTime >= :startTime
+            GROUP BY mi.category
+            ORDER BY totalRevenue DESC
+            """, Object[].class)
+            .setParameter("startTime", startTime)
+            .list();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return List.of();
         }
     }
 }

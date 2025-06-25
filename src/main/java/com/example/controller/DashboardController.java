@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.example.dao.MenuItemDAO;
 import com.example.dao.OrderDAO;
+import com.example.dao.OrderItemDAO;
 
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -15,6 +16,9 @@ import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
+import javafx.scene.chart.PieChart;
+import javafx.collections.ObservableList;
+import javafx.collections.FXCollections;
 
 public class DashboardController {
     @FXML
@@ -46,6 +50,9 @@ public class DashboardController {
 
     @FXML
     private Label weekOrderStat;
+
+    @FXML
+    private VBox monAn;
     MainController mainController;
     MenuItemDAO menuItemDAO = new MenuItemDAO();
     OrderDAO orderDAO = new OrderDAO();
@@ -56,12 +63,15 @@ public class DashboardController {
     
     @FXML
     public void initialize() {
-        loadLineChart();
-        setLabel();
+        refresh();
+        monAn.setOnMouseClicked(event -> {
+            mainController.switchToProduct();
+        });
     }
     public void refresh() {
         loadLineChart();
         setLabel();
+        loadPieChart();
     }
     public void loadLineChart() {
         lineChart.getChildren().clear();
@@ -87,7 +97,6 @@ public class DashboardController {
                     } else if (row[0] instanceof LocalDate) {
                         dateStr = ((LocalDate) row[0]).toString();
                     } else {
-                        // truong hop khac (String)
                         dateStr = row[0].toString();
                     }
                     
@@ -130,6 +139,29 @@ public class DashboardController {
     }
 
     public void loadPieChart() {
+        OrderItemDAO orderItemDAO = new OrderItemDAO();
+        pieChart.getChildren().clear();
         
+        new Thread(() -> {
+            List<Object[]> data = orderItemDAO.getWeeklyRevenueByCategory();
+            
+            Platform.runLater(() -> {
+                ObservableList<PieChart.Data> pieData = FXCollections.observableArrayList();
+                
+                for (Object[] row : data) {
+                    String category = row[0].toString();
+                    double revenue = ((Number) row[2]).doubleValue();
+                    pieData.add(new PieChart.Data(category, revenue));
+                }
+                
+                if (pieData.isEmpty()) {
+                    pieData.add(new PieChart.Data("No Data", 1));
+                }
+                
+                PieChart chart = new PieChart(pieData);
+                chart.setTitle("Revenue by Category");
+                pieChart.getChildren().add(chart);
+            });
+        }).start();
     }
 }

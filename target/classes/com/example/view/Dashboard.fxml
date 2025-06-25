@@ -176,7 +176,7 @@
                               </HBox>
                            </children>
                         </VBox>
-                        <VBox prefHeight="200.0" prefWidth="284.0" styleClass="stat-container">
+                        <VBox fx:id="monAn" prefHeight="200.0" prefWidth="284.0" styleClass="stat-container">
                            <padding>
                               <Insets bottom="24.0" left="24.0" right="24.0" top="24.0" />
                            </padding>
