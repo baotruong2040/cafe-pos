@@ -81,7 +81,7 @@
                               </Label>
                               <HBox prefHeight="24.0" prefWidth="200.0">
                                  <children>
-                                    <Label fx:id="orderPercent" prefHeight="24.0" prefWidth="173.0" styleClass="percent-label" text="+0% so với hôm qua" />
+                                    <Label fx:id="orderPercent" prefHeight="24.0" prefWidth="173.0" styleClass="percent-label" text="+0% so với hôm qua" visible="false" />
                                  </children>
                               </HBox>
                            </children>
@@ -126,7 +126,7 @@
                               </Label>
                               <HBox prefHeight="24.0" prefWidth="200.0">
                                  <children>
-                                    <Label fx:id="moneyPercent" prefHeight="24.0" prefWidth="174.0" styleClass="percent-label" text="+0% so với hôm qua" />
+                                    <Label fx:id="moneyPercent" prefHeight="24.0" prefWidth="174.0" styleClass="percent-label" text="+0% so với hôm qua" visible="false" />
                                  </children>
                               </HBox>
                            </children>
@@ -171,7 +171,7 @@
                               </Label>
                               <HBox prefHeight="24.0" prefWidth="200.0">
                                  <children>
-                                    <Label fx:id="weekOrderPercent" prefHeight="24.0" prefWidth="177.0" styleClass="percent-label" text="+0% so với tuần trước" />
+                                    <Label fx:id="weekOrderPercent" prefHeight="24.0" prefWidth="177.0" styleClass="percent-label" text="+0% so với tuần trước" visible="false" />
                                  </children>
                               </HBox>
                            </children>
@@ -216,7 +216,7 @@
                               </Label>
                               <HBox prefHeight="24.0" prefWidth="200.0" stylesheets="@style.css">
                                  <children>
-                                    <Label fx:id="itemsChange" prefHeight="24.0" prefWidth="188.0" styleClass="percent-label" text="+0 món mới" />
+                                    <Label fx:id="itemsChange" prefHeight="24.0" prefWidth="188.0" styleClass="percent-label" text="+0 món mới" visible="false" />
                                  </children>
                               </HBox>
                            </children>

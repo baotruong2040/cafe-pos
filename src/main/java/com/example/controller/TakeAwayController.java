@@ -1,7 +1,6 @@
 package com.example.controller;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Map;
 
 import com.example.model.MenuItem;
 
@@ -20,9 +19,8 @@ public class TakeAwayController {
     private VBox takeAwayBox;
 
     @FXML
-    private TextField takeAway_NameField;
+    TextField takeAway_NameField;
 
-    List<MenuItem> orderedItems = new ArrayList<>();
     MainController mainController;
 
     @FXML
@@ -39,16 +37,19 @@ public class TakeAwayController {
 
     public void loadOrderedList() {
         takeAwayBox.getChildren().clear();
-        for (MenuItem menuItem : orderedItems) {
-            try {
-                FXMLLoader orderedItemLoader = new FXMLLoader(getClass().getResource("/com/example/view/orderedItem.fxml"));
-                Node orderedItemBox = orderedItemLoader.load();
-                OrderedItemController orderedItemController = orderedItemLoader.getController();
-                orderedItemController.setOrderedItem(menuItem);
-                orderedItemController.setTakeAwayController(this);
-                takeAwayBox.getChildren().add(orderedItemBox);
-            } catch (Exception e) {
-                e.printStackTrace();
+        for (Map.Entry<MenuItem, Integer> entry : mainController.cart.entrySet()) {
+            if (entry.getValue() > 0) {
+                try {
+                    FXMLLoader orderedItemLoader = new FXMLLoader(getClass().getResource("/com/example/view/orderedItem.fxml"));
+                    Node orderedItemBox = orderedItemLoader.load();
+                    OrderedItemController orderedItemController = orderedItemLoader.getController();
+                    orderedItemController.setOrderedItem(entry.getKey(), entry.getValue());
+                    orderedItemController.setTakeAwayController(this);
+                    orderedItemController.setMainController(mainController);
+                    takeAwayBox.getChildren().add(orderedItemBox);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         }
     }
@@ -59,26 +60,24 @@ public class TakeAwayController {
 
     public void clearCart() {
         takeAwayBox.getChildren().clear();
-        orderedItems.clear();
         totalPrice();
     }
 
     public void addToCart(MenuItem item) {
-        orderedItems.add(item);
         loadOrderedList();
         totalPrice();
     }
 
     public void deleteOrderedItem(MenuItem item) {
-        orderedItems.remove(item);
+        mainController.cart.remove(item);
         loadOrderedList();
         totalPrice();
     }
 
     public void totalPrice() {
         double total = 0.0;
-        for (MenuItem item : orderedItems) {
-            total += item.getPrice();
+        for (Map.Entry<MenuItem, Integer> entry : mainController.cart.entrySet()) {
+            total += entry.getKey().getPrice()*entry.getValue();
         }
         mainController.showTotalPrice(total);
     }

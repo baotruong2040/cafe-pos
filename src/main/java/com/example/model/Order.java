@@ -63,6 +63,5 @@ public class Order {
         this.orderItems = orderItems;
     }
 
-    // Getters, Setters
     
 }

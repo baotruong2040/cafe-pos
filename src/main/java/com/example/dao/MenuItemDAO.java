@@ -65,16 +65,24 @@ public class MenuItemDAO extends GenericDAO<MenuItem> {
 
     public int countItemByCategory(String category) {
         try (Session session = com.example.util.HibernateUtil.getSessionFactory().openSession()) {
-            return ((Long) session.createQuery(
-                    "SELECT COUNT(*) FROM MenuItem WHERE category = :category")
-                .setParameter("category", category)
-                .uniqueResult()).intValue();
+            return ((Long) session.createQuery("SELECT COUNT(*) FROM MenuItem WHERE category = :category").setParameter("category", category).uniqueResult()).intValue();
         }
     }
     public int getAllItemCount() {
         try (Session session = com.example.util.HibernateUtil.getSessionFactory().openSession()) {
-            return ((Long) session.createQuery("SELECT COUNT(*) FROM MenuItem")
-                .uniqueResult()).intValue();
+            return ((Long) session.createQuery("SELECT COUNT(*) FROM MenuItem").uniqueResult()).intValue();
         }
     }
+    public List<MenuItem> findByExactPrice(double price) {
+    try (Session session = com.example.util.HibernateUtil.getSessionFactory().openSession()) {
+        return session.createQuery(
+                "FROM MenuItem WHERE price = :price", 
+                MenuItem.class)
+            .setParameter("price", price)
+            .list();
+    } catch (Exception e) {
+        e.printStackTrace();
+        return List.of();
+    }
+}
 }

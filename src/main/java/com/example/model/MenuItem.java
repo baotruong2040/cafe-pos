@@ -2,6 +2,7 @@ package com.example.model;
 
 import jakarta.persistence.*;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "menu_items")
@@ -97,4 +98,16 @@ public class MenuItem {
         this.quantity = quantity;
     }
     
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        MenuItem menuItem = (MenuItem) o;
+        return id == menuItem.id; // Chỉ so sánh theo ID
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 }

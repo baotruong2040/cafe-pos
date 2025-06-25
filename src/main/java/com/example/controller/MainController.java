@@ -1,10 +1,17 @@
 package com.example.controller;
 
+import java.io.File;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.example.model.MenuItem;
+import com.example.model.Order;
+import com.example.model.OrderItem;
 import com.example.dao.MenuItemDAO;
+import com.example.dao.OrderDAO;
 import com.example.dao.OrderItemDAO;
 
 import javafx.animation.Interpolator;
@@ -13,10 +20,12 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
@@ -114,10 +123,13 @@ public class MainController {
     ProductController productController;
     DashboardController dashboardController;
     List<MenuCardController> menuCardControllers = new ArrayList<>();
+    List<MenuCardController> mostOrderedControllers = new ArrayList<>();
+    Map<MenuItem, Integer> cart = new HashMap<>();
     String orderType = "DineIn";
-    Button currentButton = dineInButton; //for highlighting the current button
-    String currentCategory = "All"; //for filtering menu items by category
+    Button currentButton = dineInButton;
+    String currentCategory = "All";
     Button currentNavigationButton;
+    int userID;
     @FXML
     public void initialize() {
         loadMenuItemsToMenu(currentCategory);
@@ -131,10 +143,11 @@ public class MainController {
         menuNavButton.getStyleClass().add("nav-button-actived");
         allCategory.getStyleClass().add("category-button-chosen");
         butonSetOnAction();
+        settingNavButton.setVisible(false);
     }
-
     protected void loadMenuItemsToMenu(String category){
         foodItems.getChildren().clear();
+        menuCardControllers.clear();
         List<MenuItem> menuItems;
         if (category.equalsIgnoreCase("All")) {
             menuItems = menuItemDAO.findByAvailability(true);
@@ -147,9 +160,10 @@ public class MainController {
                 FXMLLoader cardLoader = new FXMLLoader(getClass().getResource("/com/example/view/menuCard.fxml"));
                 Node card = cardLoader.load();
                 MenuCardController cardController = cardLoader.getController();
-                cardController.setMenuItem(item);
                 cardController.setMainController(this);
                 menuCardControllers.add(cardController);
+                cardController.setMenuItem(item);
+                
                 foodItems.getChildren().add(card);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -179,7 +193,8 @@ public class MainController {
             orderList.getChildren().clear();
             orderList.getChildren().add(dineInUI);
             orderType = "DineIn";
-            
+            dineInController.loadOrderedList();
+            System.out.println("Order Type: "+orderType);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -194,6 +209,8 @@ public class MainController {
             orderList.getChildren().clear();
             orderList.getChildren().add(takeAwayUI);
             orderType = "TakeAway";
+            takeAwayController.loadOrderedList();
+            System.out.println("Order Type: "+orderType);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -304,9 +321,6 @@ public class MainController {
                 menuNavButton.getStyleClass().add("nav-button-actived");
                 setMenu();
                 currentNavigationButton = menuNavButton;
-                Stage stage = (Stage) MainUI.getScene().getWindow();
-                stage.setFullScreen(true);
-
             }
         });
         dashboardNavButton.setOnAction(event -> {
@@ -314,7 +328,9 @@ public class MainController {
                 currentNavigationButton.getStyleClass().remove("nav-button-actived");
                 dashboardNavButton.getStyleClass().add("nav-button-actived");
                 setDashboard();
+                dashboardController.refresh();
                 currentNavigationButton = dashboardNavButton;
+
             }
         });
         productNavButton.setOnAction(event -> {
@@ -335,7 +351,9 @@ public class MainController {
                 loadMenuItemsToMenu(currentCategory);
             }
         });
-        
+        payButton.setOnAction(event -> {
+            purchase();
+        });
     }
 
     public void translateHighLight(Button button) {
@@ -358,19 +376,29 @@ public class MainController {
     }
 
     private void loadUI() {
-        try {
-            FXMLLoader productLoader = new FXMLLoader(getClass().getResource("/com/example/view/ProductUI.fxml"));
-            productUI = productLoader.load();
-            productController = productLoader.getController();
-            productController.setMainController(this);
+        new Thread(() -> {  
+            try {
+                FXMLLoader productLoader = new FXMLLoader(getClass().getResource("/com/example/view/ProductUI.fxml"));
+                productUI = productLoader.load();
+                
+                FXMLLoader dashboardLoader = new FXMLLoader(getClass().getResource("/com/example/view/Dashboard.fxml"));
+                dashboardUI = dashboardLoader.load();
+                
+                
+                Platform.runLater(() -> {
+                    productController = productLoader.getController();
+                    productController.setMainController(this);
 
-            FXMLLoader dashboardLoader = new FXMLLoader(getClass().getResource("/com/example/view/Dashboard.fxml"));
-            dashboardUI = dashboardLoader.load();
-            dashboardController = dashboardLoader.getController();
-            dashboardController.setMainController(this);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+                    dashboardController = dashboardLoader.getController();
+                    dashboardController.setMainController(this);
+
+                    System.out.println("Product UI loaded: " + (productUI != null));
+                });
+                
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }).start();
     }
 
     private void setMenu() {
@@ -382,19 +410,16 @@ public class MainController {
         MainUI.setCenter(productUI);
     }
     private void setDashboard() {
-        
         MainUI.setCenter(dashboardUI);
     }
     
     public void handleClear() {
-        showTotalPrice(0);{}
-        if (orderType.equals("DineIn")) {
+        showTotalPrice(0);
+        cart.clear();
             dineInController.clearCart();
-            dineInController.orderedItems.clear();  
-        }else {
+        
             takeAwayController.clearCart();
-            takeAwayController.orderedItems.clear();
-        }
+    
         for (MenuCardController controller : menuCardControllers) {
             controller.clearQuantity();
         }
@@ -408,8 +433,8 @@ public class MainController {
                 FXMLLoader cardLoader = new FXMLLoader(getClass().getResource("/com/example/view/menuCard.fxml"));
                 Node card = cardLoader.load();
                 MenuCardController cardController = cardLoader.getController();
-                cardController.setMenuItem(item);
                 cardController.setMainController(this);
+                cardController.setMenuItem(item);
                 foodItems.getChildren().add(card);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -440,25 +465,156 @@ public class MainController {
     }
 
     public void loadMostOrderedItems() {
-        new Thread(() -> {
-            OrderItemDAO orderedItemDAO = new OrderItemDAO();
-            List<Object[]> mostOrderedItems = orderedItemDAO.findTop3MenuItems();
-            Platform.runLater(() -> {
-                for (Object[] objects : mostOrderedItems) {
-                    MenuItem menuItem = (MenuItem) objects[0];
-                    try {
-                        FXMLLoader menuCardLoader = new FXMLLoader(getClass().getResource("/com/example/view/menuCard.fxml"));
-                        Node menucard = menuCardLoader.load();                            
-                        MenuCardController menuCardController = menuCardLoader.getController();
-                        menuCardController.setMenuItem(menuItem);
-                        menuCardController.setMainController(this);
-                        menuCardControllers.add(menuCardController);
-                        mostOrderedItemList.getChildren().add(menucard);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }                    
+        OrderItemDAO orderedItemDAO = new OrderItemDAO();
+        List<Object[]> mostOrderedItems = orderedItemDAO.findTop3MenuItems();
+        for (Object[] objects : mostOrderedItems) {
+            MenuItem menuItem = (MenuItem) objects[0];
+            try {
+                FXMLLoader menuCardLoader = new FXMLLoader(getClass().getResource("/com/example/view/menuCard.fxml"));
+                Node menucard = menuCardLoader.load();                            
+                MenuCardController menuCardController = menuCardLoader.getController();
+                menuCardController.setMainController(this);
+                menuCardController.setMenuItem(menuItem);
+                mostOrderedControllers.add(menuCardController);
+                mostOrderedItemList.getChildren().add(menucard);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }                    
+        }
+    }
+
+    public void updateAllMenuCardQuantity(MenuItem menuItem, int quantity) {
+        for (MenuCardController controller : menuCardControllers) {
+            if (controller.getMenuItem().getId() == menuItem.getId()) {
+                controller.setQuantity(quantity);
+            }
+        }
+        for (MenuCardController controller : mostOrderedControllers) {
+            if (controller.getMenuItem().getId() == menuItem.getId()) {
+                controller.setQuantity(quantity);
+            }
+        }
+    }
+
+    public void purchase() {
+        if (!cart.isEmpty()) {
+            Order order = new Order();
+            double subTotal = 0;
+            List<OrderItem> orderItems = new ArrayList<>();
+            for (Map.Entry<MenuItem, Integer> entry : cart.entrySet()) {
+                OrderItem item = new OrderItem();
+                item.setMenuItem(entry.getKey());
+                item.setPrice(entry.getKey().getPrice());
+                item.setQuantity(entry.getValue());
+                subTotal += item.getPrice() * item.getQuantity();
+                orderItems.add(item);
+            }
+            double tax = subTotal * 0.08;
+            double total = subTotal + tax;
+            order.setTotalAmount(total);
+            order.setOrderItems(orderItems);
+            final double finalSubTotal = subTotal;
+            
+            new Thread(() -> {
+                try {
+                    OrderDAO orderDAO = new OrderDAO();
+                    Order savedOrder = orderDAO.saveOrder(order);
+
+                    Platform.runLater(() -> {
+                        if (savedOrder != null) {
+                            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                            alert.setTitle("Thanh toán thành công");
+                            alert.setContentText(String.format("Đã tạo đơn #%d thành công\nTổng tiền: %,.0f VNĐ", savedOrder.getId(), total));
+                            alert.showAndWait();
+                            printBill(orderType, savedOrder, finalSubTotal, tax);
+                            handleClear();
+                        }else {
+                            Alert alert = new Alert(AlertType.ERROR);
+                            alert.setTitle("ERROR");
+                            alert.setContentText("Không thế tạo đơn. Vui lòng thử lại");
+                            alert.showAndWait();
+                        }
+                    });
+
+                }catch (Exception e) {
+                    e.printStackTrace();
                 }
-            });
+            }).start();
+        }
+    }
+
+    public void printBill(String orderType, Order order, double subtotal, double tax) {
+        DateTimeFormatter displayFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+        DateTimeFormatter fileNameFormatter = DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss");
+        
+        String customerData;
+        String orderItem = "";
+        
+        if ("DineIn".equals(orderType)) {
+            customerData = "Customer: " + dineInController.dineIn_NameField.getText().trim() + "\nTable: " + dineInController.dineIN_NumberField.getText().trim();
+        } else {
+            customerData = "Customer: " + takeAwayController.takeAway_NameField.getText().trim();
+        }
+        
+        for (OrderItem cItem : order.getOrderItems()) {
+            orderItem += String.format("%-20s %d*%,.0f = %,.0f VNĐ\n", cItem.getMenuItem().getName(), cItem.getQuantity(), cItem.getPrice(), cItem.getPrice()*cItem.getQuantity());
+        }
+
+        String bill = String.format("""
+                ===============================
+                            RiPOS
+                ===============================
+                
+                Order ID: %d
+                Date: %s
+                Order Type: %s
+                
+                %s
+                
+                ===============================
+                           ITEMS
+                ===============================
+                %s
+                ===============================
+                Subtotal:           %,.0f VNĐ
+                Tax (8%%):           %,.0f VNĐ
+                ===============================
+                TOTAL:              %,.0f VNĐ
+                ===============================
+                
+                Thank you for your visit!
+                """, order.getId(),order.getOrderTime().format(displayFormatter), orderType, customerData, orderItem, subtotal, tax, order.getTotalAmount());
+
+        new Thread(() -> {
+            try {
+                String fileName = String.format("bill_%d_%s.txt", order.getId(), order.getOrderTime().format(fileNameFormatter));
+                
+                String resourcePath = "src/main/resources/com/example/bills/";
+                File billDir = new File(resourcePath);
+                
+                if (!billDir.exists()) {
+                    billDir.mkdirs();
+                }
+                
+                File billFile = new File(billDir, fileName);
+                
+                try (java.io.FileWriter writer = new java.io.FileWriter(billFile)) {
+                    writer.write(bill);
+                    writer.flush();
+                }
+
+                System.out.println("Bill saved to: " + billFile.getAbsolutePath());
+                
+            } catch (Exception e) {
+                e.printStackTrace();
+                Platform.runLater(() -> {
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Error");
+                    alert.setHeaderText("Không thể lưu bill!");
+                    alert.setContentText("Error: " + e.getMessage());
+                    alert.showAndWait();
+                });
+            }
         }).start();
     }
 }

@@ -31,7 +31,7 @@ public class App extends Application {
         primaryStage.setTitle("Login - Café Management System");
         primaryStage.getIcons().add(new javafx.scene.image.Image(getClass().getResourceAsStream("/com/example/image/Java.png")));
         primaryStage.setScene(scene);
-        primaryStage.setFullScreen(true);
+        primaryStage.setFullScreen(false);
         primaryStage.setFullScreenExitHint("");
         primaryStage.setMinWidth(610);
         primaryStage.show();

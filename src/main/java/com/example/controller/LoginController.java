@@ -49,46 +49,52 @@ public class LoginController {
     }
 
     private void handleLogin() {
-        String username = usernameField.getText();
-        String password = passwordField.getText();
+        new Thread(() -> {
+            String username = usernameField.getText();
+            String password = passwordField.getText();
 
-        if (!username.isEmpty() && !password.isEmpty()) {
-            if (userDAO.isValidUser(username, password)) {
-                inValidSignIn.setVisible(false);
-                if (userDAO.getUserRole(username).equalsIgnoreCase("admin")) {
-                    switchToMainUI();
+            if (!username.isEmpty() && !password.isEmpty()) {
+                if (userDAO.isValidUser(username, password)) {
+                    inValidSignIn.setVisible(false);
+                    if (userDAO.getUserRole(username).equalsIgnoreCase("admin")) {
+                        Platform.runLater(() -> switchToMainUI());
+                    } else {
+                        Platform.runLater(() -> {
+                            switchToMainUI();
+                            mainController.dashboardNavButton.setDisable(true);
+                            mainController.productNavButton.setDisable(true);
+                            mainController.settingNavButton.setDisable(true);
+                        });
+                    }
                 } else {
-                    switchToMainUI();
-                    mainController.dashboardNavButton.setDisable(true);
-                    mainController.productNavButton.setDisable(true);
-                    mainController.settingNavButton.setDisable(true);
+                    inValidSignIn.setVisible(true);
+                    
                 }
-            } else {
-                inValidSignIn.setVisible(true);
-                
+                notFillWarn.setVisible(false);
+            }else {
+                notFillWarn.setVisible(true);
             }
-            notFillWarn.setVisible(false);
-        }else {
-            notFillWarn.setVisible(true);
-        }
+        }).start();
     }
 
     private void switchToMainUI() {
-        try {
-            Stage primaryStage = (Stage) loginButton.getScene().getWindow();
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/view/MainUI.fxml"));
-            BorderPane mainUI = loader.load();
-            mainController = loader.getController();
-            Scene scene = new Scene(mainUI, 1280, 800);
-            scene.getStylesheets().add(getClass().getResource("/com/example/view/style.css").toExternalForm());
-            primaryStage.setTitle("Café Management System");
-            primaryStage.setScene(scene);
-            Platform.runLater(() -> primaryStage.setFullScreen(true));
-            primaryStage.setFullScreenExitHint("");
-            primaryStage.setMinWidth(610);
-            primaryStage.show();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        new Thread(() -> {
+            try {
+                Stage primaryStage = (Stage) loginButton.getScene().getWindow();
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/view/MainUI.fxml"));
+                BorderPane mainUI = loader.load();
+                Platform.runLater(() -> {
+                    mainController = loader.getController();
+                    Scene scene = new Scene(mainUI, 1280, 800);
+                    scene.getStylesheets().add(getClass().getResource("/com/example/view/style.css").toExternalForm());
+                    primaryStage.setTitle("Café Management System");
+                    primaryStage.setScene(scene);
+                    primaryStage.setMinWidth(610);
+                    primaryStage.show();
+                });
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }).start();
     }
 }

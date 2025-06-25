@@ -3,6 +3,7 @@ package com.example.controller;
 import com.example.dao.MenuItemDAO;
 import com.example.model.MenuItem;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -72,13 +73,19 @@ public class ProductCardController {
         statusLabel.setText(item.isAvailable() ? "Available" : "Unvailable");
         statusLabel.setStyle(item.isAvailable() ? "-fx-background-color:  #10b981; -fx-background-radius: 20;" : "-fx-background-color: red; -fx-background-radius: 20;");
         
-        try {
-            Image image = new Image(getClass().getResourceAsStream(item.getImagePath()));
-            productCardImage.setImage(image);
-        } catch (Exception e) {
-            Image image = new Image(getClass().getResourceAsStream("/com/example/image/placeHolder.png"));
-            productCardImage.setImage(image);
-        }
+        new Thread(() -> {
+            try {
+                Platform.runLater(() -> {
+                    Image image = new Image(getClass().getResourceAsStream(item.getImagePath()));
+                    productCardImage.setImage(image);
+                });
+            } catch (Exception e) {
+                Platform.runLater(() -> {
+                    Image image = new Image(getClass().getResourceAsStream("/com/example/image/placeHolder.png"));
+                productCardImage.setImage(image);
+                });
+            }
+        }).start();
     }
     public void deleteProduct() {
         MenuItemDAO menuItemDAO = new MenuItemDAO();

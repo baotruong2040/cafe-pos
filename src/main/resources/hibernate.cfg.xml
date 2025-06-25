@@ -17,6 +17,8 @@
         <property name="hibernate.show_sql">true</property>
         <property name="hibernate.hbm2ddl.auto">update</property>
 
+        <!-- timezone -->
+        <property name="hibernate.jdbc.time_zone">Asia/Ho_Chi_Minh</property>
 
         <mapping class="com.example.model.MenuItem"/>
         <mapping class="com.example.model.Order"/>
