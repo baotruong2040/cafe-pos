@@ -57,10 +57,10 @@ public class LoginController {
                 if (userDAO.isValidUser(username, password)) {
                     inValidSignIn.setVisible(false);
                     if (userDAO.getUserRole(username).equalsIgnoreCase("admin")) {
-                        Platform.runLater(() -> switchToMainUI());
+                        Platform.runLater(() -> switchToMainUI(true));
                     } else {
                         Platform.runLater(() -> {
-                            switchToMainUI();
+                            switchToMainUI(false);
                             mainController.dashboardNavButton.setDisable(true);
                             mainController.productNavButton.setDisable(true);
                             mainController.settingNavButton.setDisable(true);
@@ -77,7 +77,7 @@ public class LoginController {
         }).start();
     }
 
-    private void switchToMainUI() {
+    private void switchToMainUI(boolean b) {
         new Thread(() -> {
             try {
                 Stage primaryStage = (Stage) loginButton.getScene().getWindow();
@@ -91,6 +91,11 @@ public class LoginController {
                     primaryStage.setScene(scene);
                     primaryStage.setMinWidth(610);
                     primaryStage.show();
+                    if (!b) {
+                        mainController.dashboardNavButton.setDisable(true);
+                        mainController.productNavButton.setDisable(true);
+                        mainController.settingNavButton.setDisable(true);
+                    }
                 });
             } catch (Exception e) {
                 e.printStackTrace();
