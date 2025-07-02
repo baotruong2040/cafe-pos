@@ -1,4 +1,4 @@
-﻿# Cafe POS System
+# Cafe POS System
 
 A Java-based Point of Sale (POS) system for cafes using JavaFX and Hibernate.
 
@@ -62,7 +62,7 @@ cafe-pos/
 Clone the project
 
 ```bash
-  git clone https://link-to-project
+  git clone https://github.com/baotruong2040/cafe-pos
 ```
 
 Go to the project directory
